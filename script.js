@@ -4,19 +4,73 @@ const navMenu = document.querySelector('.nav-menu');
 
 if (mobileMenuToggle) {
     mobileMenuToggle.addEventListener('click', () => {
+        const isExpanded = mobileMenuToggle.getAttribute('aria-expanded') === 'true';
         navMenu.classList.toggle('active');
         mobileMenuToggle.classList.toggle('active');
+        mobileMenuToggle.setAttribute('aria-expanded', !isExpanded);
     });
 }
 
 // Close mobile menu when clicking on a link
-const navLinks = document.querySelectorAll('.nav-menu a');
+const navLinks = document.querySelectorAll('.nav-menu a, .nav-menu button');
 navLinks.forEach(link => {
     link.addEventListener('click', () => {
         navMenu.classList.remove('active');
         mobileMenuToggle.classList.remove('active');
+        mobileMenuToggle.setAttribute('aria-expanded', 'false');
     });
 });
+
+// Contact Modal Functionality
+const contactModal = document.getElementById('contact-modal');
+const modalCloseBtn = document.getElementById('modal-close-btn');
+const contactModalTriggers = document.querySelectorAll('.contact-modal-trigger');
+
+// Open modal
+contactModalTriggers.forEach(trigger => {
+    trigger.addEventListener('click', () => {
+        contactModal.classList.add('active');
+        contactModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+    });
+});
+
+// Close modal
+const closeModal = () => {
+    contactModal.classList.remove('active');
+    contactModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = 'auto';
+};
+
+if (modalCloseBtn) {
+    modalCloseBtn.addEventListener('click', closeModal);
+}
+
+// Close modal when clicking overlay
+contactModal.addEventListener('click', (e) => {
+    if (e.target === contactModal.querySelector('.modal-overlay') || e.target === contactModal) {
+        closeModal();
+    }
+});
+
+// Close modal on Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && contactModal.classList.contains('active')) {
+        closeModal();
+    }
+});
+
+// Handle modal form submission
+const modalForm = contactModal.querySelector('form');
+if (modalForm) {
+    modalForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Thank you for your message! We will get back to you soon.');
+        modalForm.reset();
+        closeModal();
+    });
+}
+
 
 // Smooth Scroll
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -76,24 +130,6 @@ animateOnScroll.forEach(el => {
     observer.observe(el);
 });
 
-// Form Submission Handler
-const contactForm = document.querySelector('.contact-form form');
-if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        // Get form data
-        const formData = new FormData(contactForm);
-        
-        // Here you would typically send the data to a server
-        // For now, we'll just show a success message
-        alert('Thank you for your message! We will get back to you soon.');
-        
-        // Reset form
-        contactForm.reset();
-    });
-}
-
 // Newsletter Form Handler
 const newsletterForm = document.querySelector('.newsletter-form');
 if (newsletterForm) {
@@ -130,7 +166,8 @@ window.addEventListener('scroll', () => {
         }
     });
     
-    navLinks.forEach(link => {
+    const navAnchorLinks = document.querySelectorAll('.nav-menu a');
+    navAnchorLinks.forEach(link => {
         link.classList.remove('active');
         if (link.getAttribute('href') === `#${current}`) {
             link.classList.add('active');

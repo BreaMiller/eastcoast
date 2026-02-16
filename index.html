@@ -3,142 +3,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="East Coast Capture - Professional Photo Printing and Photography Services">
-    <title>East Coast Capture | Professional Photo Printing</title>
+    <meta name="description" content="East Coast Capture - Professional Photo Printing and Photography Services in Smithfield, RI">
+    <title>East Coast Capture | Professional Photo Printing in Smithfield, RI</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&family=Helvetica+Neue:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Schema.org JSON-LD for Local Business -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "East Coast Capture",
+        "description": "Professional photo printing and photography services",
+        "image": "https://eastcoastcapture.com/images/logo.png",
+        "url": "https://eastcoastcapture.com",
+        "telephone": "+18005780145",
+        "email": "support@eastcoastcapture.com",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "375 Putnam Pike",
+            "addressLocality": "Smithfield",
+            "addressRegion": "RI",
+            "postalCode": "02917",
+            "addressCountry": "US"
+        },
+        "openingHoursSpecification": [
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                "opens": "09:00",
+                "closes": "18:00"
+            },
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": "Saturday",
+                "opens": "10:00",
+                "closes": "16:00"
+            }
+        ],
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 41.952667,
+            "longitude": -71.466000
+        },
+        "sameAs": [
+            "https://www.facebook.com/eastcoastcapture",
+            "https://www.instagram.com/eastcoastcapture"
+        ]
+    }
+    </script>
 </head>
 <body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar" aria-label="Main navigation">
         <div class="container">
             <div class="nav-wrapper">
-                <a href="#" class="logo">East Coast Capture</a>
-                <button class="mobile-menu-toggle" aria-label="Toggle menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                <a href="#home" class="logo" aria-label="East Coast Capture - Home">East Coast Capture</a>
+                <button class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
                 </button>
-                <ul class="nav-menu">
+                <ul class="nav-menu" id="nav-menu">
                     <li><a href="#home">Home</a></li>
                     <li><a href="#services">Services</a></li>
                     <li><a href="#gallery">Gallery</a></li>
                     <li><a href="#about">About</a></li>
-                    <li><a href="#contact" class="btn-primary">Contact Us</a></li>
+                    <li><button class="btn-primary contact-modal-trigger" role="button" aria-label="Open contact form">Contact Us</button></li>
                 </ul>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="hero">
+    <section id="home" class="hero" style="background-image: url('https://images.unsplash.com/photo-1503744844353-efd9455d7e5d?w=1200&h=800&fit=crop'); background-size: cover; background-position: center;" aria-labelledby="hero-heading">
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <h1 class="hero-title">Preserve Your Memories</h1>
+            <h1 class="hero-title" id="hero-heading">Preserve Your Memories</h1>
             <p class="hero-subtitle">Professional photo printing and photography services on the East Coast</p>
             <div class="hero-buttons">
-                <a href="#services" class="btn btn-primary">Our Services</a>
-                <a href="#gallery" class="btn btn-secondary">View Gallery</a>
+                <a href="#services" class="btn btn-primary" role="button">Our Services</a>
+                <a href="#gallery" class="btn btn-secondary" role="button">View Gallery</a>
             </div>
         </div>
-        <div class="hero-scroll">
+        <div class="hero-scroll" aria-hidden="true">
             <span>Scroll Down</span>
             <div class="scroll-arrow"></div>
         </div>
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="services">
+    <main id="main-content">
+    <section id="services" class="services" aria-label="Our Photography Services">
         <div class="container">
             <div class="section-header">
-                <h2>Our Services</h2>
-                <p>Premium quality printing and photography solutions</p>
+                <h2>Expert Storytellers</h2>
+                <p>Capturing life's most important moments through thoughtful photography</p>
             </div>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">📸</div>
-                    <h3>Professional Photography</h3>
-                    <p>Capture life's precious moments with our experienced photographers. From portraits to events, we deliver stunning results.</p>
-                    <a href="#contact" class="service-link">Learn More →</a>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">🖼️</div>
-                    <h3>Photo Printing</h3>
-                    <p>High-quality prints on premium paper with vibrant colors and exceptional detail. Various sizes and finishes available.</p>
-                    <a href="#contact" class="service-link">Learn More →</a>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">📚</div>
-                    <h3>Photo Books</h3>
-                    <p>Create beautiful custom photo books to tell your story. Perfect for weddings, vacations, and family memories.</p>
-                    <a href="#contact" class="service-link">Learn More →</a>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">🎨</div>
-                    <h3>Canvas & Wall Art</h3>
-                    <p>Transform your favorite photos into stunning canvas prints and gallery-quality wall art for your home or office.</p>
-                    <a href="#contact" class="service-link">Learn More →</a>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">🎁</div>
-                    <h3>Custom Gifts</h3>
-                    <p>Personalized photo gifts including mugs, calendars, cards, and more. Perfect for any occasion.</p>
-                    <a href="#contact" class="service-link">Learn More →</a>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">💾</div>
-                    <h3>Photo Restoration</h3>
-                    <p>Bring old and damaged photos back to life with our professional restoration services.</p>
-                    <a href="#contact" class="service-link">Learn More →</a>
-                </div>
+            <div class="services-grid" role="list">
+                <article class="service-card" role="listitem">
+                    <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1427504494785-cdcd6c6dbf64?w=500&h=500&fit=crop');" aria-label="School picture day photography"></div>
+                    <h3>School Picture Day</h3>
+                    <p>Professional school portraits that capture each child's personality and confidence. We work with schools to create cherished memories for families.</p>
+                    <a href="#contact" class="service-link" role="button">Learn More →<span class="sr-only">about School Picture Day</span></a>
+                </article>
+                <article class="service-card" role="listitem">
+                    <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1577013621424-fb3fd7314e13?w=500&h=500&fit=crop');" aria-label="The Santa Experience photography"></div>
+                    <h3>The Santa Experience</h3>
+                    <p>Create magical holiday memories with professional Santa photo sessions. Perfect for families looking to capture the wonder and joy of the season.</p>
+                    <a href="#contact" class="service-link" role="button">Learn More →<span class="sr-only">about The Santa Experience</span></a>
+                </article>
+                <article class="service-card" role="listitem">
+                    <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1505628346881-b72b27e84530?w=500&h=500&fit=crop');" aria-label="Newborn photography"></div>
+                    <h3>Newborn Photography</h3>
+                    <p>Tender and beautiful newborn portraits that celebrate the arrival of your little one. We create timeless images during those precious first days.</p>
+                    <a href="#contact" class="service-link" role="button">Learn More →<span class="sr-only">about Newborn Photography</span></a>
+                </article>
+                <article class="service-card" role="listitem">
+                    <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=500&h=500&fit=crop');" aria-label="Dance and sports photography"></div>
+                    <h3>Dance & Sports</h3>
+                    <p>Dynamic action shots that capture the energy and passion of athletic and dance performances. Perfect for teams, recitals, and competitions.</p>
+                    <a href="#contact" class="service-link" role="button">Learn More →<span class="sr-only">about Dance & Sports</span></a>
+                </article>
+                <article class="service-card" role="listitem">
+                    <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1542038784456-1f64e8172d54?w=500&h=500&fit=crop');" aria-label="Studio experience photography"></div>
+                    <h3>Studio Experience</h3>
+                    <p>Professional studio sessions with carefully crafted lighting and backdrops. From family portraits to business headshots, we create stunning images.</p>
+                    <a href="#contact" class="service-link" role="button">Learn More →<span class="sr-only">about Studio Experience</span></a>
+                </article>
+                <article class="service-card" role="listitem">
+                    <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=500&fit=crop');" aria-label="Senior photos photography"></div>
+                    <h3>Senior Photos</h3>
+                    <p>Celebrate this milestone with beautiful senior portraits. We capture the personality and confidence of your high school years.</p>
+                    <a href="#contact" class="service-link" role="button">Learn More →<span class="sr-only">about Senior Photos</span></a>
+                </article>
             </div>
         </div>
     </section>
 
     <!-- Gallery Section -->
-    <section id="gallery" class="gallery">
+    <section id="gallery" class="gallery" aria-label="Gallery of our work">
         <div class="container">
             <div class="section-header">
                 <h2>Our Work</h2>
                 <p>A glimpse of the quality we deliver</p>
             </div>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <div class="gallery-placeholder" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+            <div class="gallery-grid" role="list">
+                <div class="gallery-item" role="listitem">
+                    <div class="gallery-placeholder" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=400&fit=crop'); background-size: cover; background-position: center;" aria-label="Portrait Photography sample"></div>
                     <div class="gallery-overlay">
-                        <h4>Portrait Photography</h4>
+                        <h3>Portrait Photography</h3>
                     </div>
                 </div>
-                <div class="gallery-item">
-                    <div class="gallery-placeholder" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"></div>
+                <div class="gallery-item" role="listitem">
+                    <div class="gallery-placeholder" style="background-image: url('https://images.unsplash.com/photo-1519741497674-611481863552?w=600&h=400&fit=crop'); background-size: cover; background-position: center;" aria-label="Wedding Photography sample"></div>
                     <div class="gallery-overlay">
-                        <h4>Wedding Photography</h4>
+                        <h3>Wedding Photography</h3>
                     </div>
                 </div>
-                <div class="gallery-item">
-                    <div class="gallery-placeholder" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
+                <div class="gallery-item" role="listitem">
+                    <div class="gallery-placeholder" style="background-image: url('https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=600&h=400&fit=crop'); background-size: cover; background-position: center;" aria-label="Event Photography sample"></div>
                     <div class="gallery-overlay">
-                        <h4>Event Photography</h4>
+                        <h3>Event Photography</h3>
                     </div>
                 </div>
-                <div class="gallery-item">
-                    <div class="gallery-placeholder" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);"></div>
+                <div class="gallery-item" role="listitem">
+                    <div class="gallery-placeholder" style="background-image: url('https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&h=400&fit=crop'); background-size: cover; background-position: center;" aria-label="Product Photography sample"></div>
                     <div class="gallery-overlay">
-                        <h4>Product Photography</h4>
+                        <h3>Product Photography</h3>
                     </div>
                 </div>
-                <div class="gallery-item">
-                    <div class="gallery-placeholder" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);"></div>
+                <div class="gallery-item" role="listitem">
+                    <div class="gallery-placeholder" style="background-image: url('https://images.unsplash.com/photo-1511895426328-dc8714191300?w=600&h=400&fit=crop'); background-size: cover; background-position: center;" aria-label="Family Photos sample"></div>
                     <div class="gallery-overlay">
-                        <h4>Family Photos</h4>
+                        <h3>Family Photos</h3>
                     </div>
                 </div>
-                <div class="gallery-item">
-                    <div class="gallery-placeholder" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);"></div>
+                <div class="gallery-item" role="listitem">
+                    <div class="gallery-placeholder" style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop'); background-size: cover; background-position: center;" aria-label="Landscape Photography sample"></div>
                     <div class="gallery-overlay">
-                        <h4>Landscape Photography</h4>
+                        <h3>Landscape Photography</h3>
                     </div>
                 </div>
             </div>
@@ -187,106 +236,89 @@
     </section>
 
     <!-- Testimonials Section -->
-    <section class="testimonials">
+    <section class="testimonials" aria-label="Client testimonials">
         <div class="container">
             <div class="section-header">
                 <h2>What Our Clients Say</h2>
                 <p>Don't just take our word for it</p>
             </div>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">★★★★★</div>
-                    <p class="testimonial-text">"Outstanding quality and service! East Coast Capture turned our wedding photos into beautiful prints that we'll cherish forever."</p>
+            <div class="testimonials-grid" role="list">
+                <article class="testimonial-card" role="listitem">
+                    <div class="testimonial-image" style="background-image: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop'); background-size: cover; background-position: center;"></div>
+                    <div class="testimonial-stars" aria-label="5 out of 5 stars">★★★★★</div>
+                    <blockquote class="testimonial-text">"Outstanding quality and service! East Coast Capture turned our wedding photos into beautiful prints that we'll cherish forever."</blockquote>
                     <div class="testimonial-author">
                         <strong>Sarah & Michael</strong>
                         <span>Wedding Photography</span>
                     </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">★★★★★</div>
-                    <p class="testimonial-text">"The photo restoration service is amazing. They brought my grandmother's old photos back to life. Highly recommended!"</p>
+                </article>
+                <article class="testimonial-card" role="listitem">
+                    <div class="testimonial-image" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop'); background-size: cover; background-position: center;"></div>
+                    <div class="testimonial-stars" aria-label="5 out of 5 stars">★★★★★</div>
+                    <blockquote class="testimonial-text">"The photo restoration service is amazing. They brought my grandmother's old photos back to life. Highly recommended!"</blockquote>
                     <div class="testimonial-author">
                         <strong>Jennifer L.</strong>
                         <span>Photo Restoration</span>
                     </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">★★★★★</div>
-                    <p class="testimonial-text">"Professional, creative, and reliable. The canvas prints look absolutely stunning in our living room."</p>
+                </article>
+                <article class="testimonial-card" role="listitem">
+                    <div class="testimonial-image" style="background-image: url('https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop'); background-size: cover; background-position: center;"></div>
+                    <div class="testimonial-stars" aria-label="5 out of 5 stars">★★★★★</div>
+                    <blockquote class="testimonial-text">"Professional, creative, and reliable. The canvas prints look absolutely stunning in our living room."</blockquote>
                     <div class="testimonial-author">
                         <strong>David R.</strong>
                         <span>Canvas Prints</span>
                     </div>
-                </div>
+                </article>
             </div>
         </div>
     </section>
+    </main>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
+    <!-- Location Section -->
+    <section id="location" class="location" aria-label="Studio Location">
         <div class="container">
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h2>Get In Touch</h2>
-                    <p>Ready to capture your memories? Contact us today to discuss your photography and printing needs.</p>
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <div class="contact-icon">📍</div>
-                            <div>
-                                <h4>Visit Us</h4>
-                                <p>East Coast, USA</p>
-                            </div>
+            <div class="section-header">
+                <h2>Visit Our Studio</h2>
+                <p>Stop by our studio in Smithfield, Rhode Island</p>
+            </div>
+            <div class="location-content">
+                <div class="location-info">
+                    <h3>East Coast Capture Studio</h3>
+                    <div class="location-details">
+                        <div class="location-item">
+                            <h4>Address</h4>
+                            <p>
+                                <a href="https://maps.google.com/?q=375+Putnam+Pike+Smithfield+RI+02917" target="_blank" rel="noopener noreferrer">
+                                    375 Putnam Pike<br>
+                                    Smithfield, RI 02917
+                                </a>
+                            </p>
                         </div>
-                        <div class="contact-item">
-                            <div class="contact-icon">📞</div>
-                            <div>
-                                <h4>Call Us</h4>
-                                <p>(555) 123-4567</p>
-                            </div>
+                        <div class="location-item">
+                            <h4>Phone</h4>
+                            <p><a href="tel:+18005780145">(800) 578-0145</a></p>
                         </div>
-                        <div class="contact-item">
-                            <div class="contact-icon">✉️</div>
-                            <div>
-                                <h4>Email Us</h4>
-                                <p>info@eastcoastcapture.com</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <div class="contact-icon">🕐</div>
-                            <div>
-                                <h4>Business Hours</h4>
-                                <p>Mon-Fri: 9AM - 6PM<br>Sat: 10AM - 4PM</p>
-                            </div>
+                        <div class="location-item">
+                            <h4>Hours</h4>
+                            <p>
+                                Monday - Friday: 9AM - 6PM<br>
+                                Saturday: 10AM - 4PM<br>
+                                Sunday: Closed
+                            </p>
                         </div>
                     </div>
                 </div>
-                <div class="contact-form">
-                    <form>
-                        <div class="form-group">
-                            <input type="text" placeholder="Your Name" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" placeholder="Your Email" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="tel" placeholder="Your Phone">
-                        </div>
-                        <div class="form-group">
-                            <select>
-                                <option value="">Select a Service</option>
-                                <option value="photography">Professional Photography</option>
-                                <option value="printing">Photo Printing</option>
-                                <option value="books">Photo Books</option>
-                                <option value="canvas">Canvas & Wall Art</option>
-                                <option value="gifts">Custom Gifts</option>
-                                <option value="restoration">Photo Restoration</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <textarea placeholder="Tell us about your project" rows="4" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-full">Send Message</button>
-                    </form>
+                <div class="location-map">
+                    <iframe 
+                        title="East Coast Capture Studio Location - 375 Putnam Pike, Smithfield, RI 02917"
+                        width="100%" 
+                        height="450" 
+                        style="border:0;" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2945.7438474265357!2d-71.46596!3d41.95267!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89e5a0f0d0d0d0d%3A0x0!2s375%20Putnam%20Pike%2C%20Smithfield%2C%20RI%2002917!5e0!3m2!1sen!2sus!4v1234567890">
+                    </iframe>
                 </div>
             </div>
         </div>
@@ -300,10 +332,8 @@
                     <h3>East Coast Capture</h3>
                     <p>Preserving your precious memories with professional photography and printing services.</p>
                     <div class="social-links">
-                        <a href="#" aria-label="Facebook">Facebook</a>
-                        <a href="#" aria-label="Instagram">Instagram</a>
-                        <a href="#" aria-label="Twitter">Twitter</a>
-                        <a href="#" aria-label="Pinterest">Pinterest</a>
+                        <a href="https://www.facebook.com/EastCoastCapture" target="_blank" rel="noopener noreferrer" aria-label="Visit East Coast Capture on Facebook">Facebook</a>
+                        <a href="https://www.instagram.com/eastcoastcapture/" target="_blank" rel="noopener noreferrer" aria-label="Visit East Coast Capture on Instagram">Instagram</a>
                     </div>
                 </div>
                 <div class="footer-section">
@@ -314,6 +344,7 @@
                         <li><a href="#gallery">Gallery</a></li>
                         <li><a href="#about">About</a></li>
                         <li><a href="#contact">Contact</a></li>
+                        <li><a href="#location">Location</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -329,9 +360,10 @@
                 <div class="footer-section">
                     <h4>Newsletter</h4>
                     <p>Subscribe to get special offers and updates</p>
-                    <form class="newsletter-form">
-                        <input type="email" placeholder="Your email">
-                        <button type="submit">Subscribe</button>
+                    <form class="newsletter-form" aria-label="Newsletter subscription">
+                        <label for="newsletter-email" class="sr-only">Your email address</label>
+                        <input type="email" id="newsletter-email" name="email" placeholder="Your email" aria-label="Your email address" required>
+                        <button type="submit" aria-label="Subscribe to newsletter">Subscribe</button>
                     </form>
                 </div>
             </div>
@@ -340,6 +372,47 @@
             </div>
         </div>
     </footer>
+
+    <!-- Contact Modal -->
+    <div id="contact-modal" class="modal" aria-hidden="true" aria-labelledby="modal-title" role="dialog">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Close contact form" id="modal-close-btn">&times;</button>
+            <h2 id="modal-title">Get In Touch</h2>
+            <p>Ready to capture your memories? Contact us today to discuss your photography and printing needs.</p>
+            <form aria-label="Contact form">
+                <div class="form-group">
+                    <label for="modal-name" class="sr-only">Your Name</label>
+                    <input type="text" id="modal-name" name="name" placeholder="Your Name" aria-label="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="modal-email" class="sr-only">Your Email</label>
+                    <input type="email" id="modal-email" name="email" placeholder="Your Email" aria-label="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <label for="modal-phone" class="sr-only">Your Phone</label>
+                    <input type="tel" id="modal-phone" name="phone" placeholder="Your Phone" aria-label="Your Phone">
+                </div>
+                <div class="form-group">
+                    <label for="modal-service" class="sr-only">Select a Service</label>
+                    <select id="modal-service" name="service" aria-label="Select a Service">
+                        <option value="">Select a Service</option>
+                        <option value="photography">Professional Photography</option>
+                        <option value="printing">Photo Printing</option>
+                        <option value="books">Photo Books</option>
+                        <option value="canvas">Canvas & Wall Art</option>
+                        <option value="gifts">Custom Gifts</option>
+                        <option value="restoration">Photo Restoration</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="modal-message" class="sr-only">Tell us about your project</label>
+                    <textarea id="modal-message" name="message" placeholder="Tell us about your project" aria-label="Tell us about your project" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Send Message</button>
+            </form>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
