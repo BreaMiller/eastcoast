@@ -332,10 +332,38 @@ body {
     background: #ffffff;
 }
 
-.services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+.carousel-container {
+    overflow: hidden;
+    margin-top: 3rem;
+}
+
+.carousel {
+    display: flex;
     gap: 2.5rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding-bottom: 1rem;
+    scroll-snap-type: x mandatory;
+}
+
+.carousel::-webkit-scrollbar {
+    height: 6px;
+}
+
+.carousel::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 10px;
+}
+
+.carousel::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 10px;
+}
+
+.carousel-item {
+    flex: 0 0 calc(33.333% - 1.67rem);
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
 }
 
 .service-card {
@@ -349,12 +377,19 @@ body {
     display: flex;
     flex-direction: column;
     height: 100%;
+    filter: blur(0px);
+}
+
+.service-card.blurred {
+    filter: blur(6px);
+    opacity: 0.6;
 }
 
 .service-card:hover {
     transform: translateY(-6px);
     box-shadow: var(--shadow-lg);
     border-color: var(--secondary-color);
+    filter: blur(0px);
 }
 
 .service-image {
@@ -368,18 +403,18 @@ body {
 .service-card h3 {
     font-size: 1.4rem;
     color: var(--primary-color);
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     font-weight: 600;
-    padding: 2rem 2rem 0 2rem;
+    padding: 1.5rem 1.5rem 0 1.5rem;
     margin-top: 0;
 }
 
 .service-card p {
     color: var(--text-light);
-    margin-bottom: 1.5rem;
+    margin-bottom: 0;
     line-height: 1.6;
-    font-size: 0.95rem;
-    padding: 0 2rem;
+    font-size: 0.9rem;
+    padding: 0.5rem 1.5rem 1.5rem 1.5rem;
     flex-grow: 1;
 }
 
@@ -1003,6 +1038,10 @@ body {
         gap: 3rem;
     }
     
+    .carousel-item {
+        flex: 0 0 calc(50% - 1.25rem);
+    }
+    
     .section-header h2 {
         font-size: 2rem;
     }
@@ -1059,6 +1098,10 @@ body {
     .gallery-grid,
     .testimonials-grid {
         grid-template-columns: 1fr;
+    }
+    
+    .carousel-item {
+        flex: 0 0 calc(100% - 0rem);
     }
     
     .about-stats {

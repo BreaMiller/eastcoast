@@ -180,6 +180,40 @@ window.addEventListener('load', () => {
     // Add any image preloading logic here if needed
 });
 
+// Carousel Blur Effect on Scroll
+const carousel = document.querySelector('.carousel');
+if (carousel) {
+    const updateCarouselBlur = () => {
+        const carouselRect = carousel.getBoundingClientRect();
+        const carouselCenter = carouselRect.left + carouselRect.width / 2;
+        
+        const items = carousel.querySelectorAll('.carousel-item');
+        items.forEach(item => {
+            const itemRect = item.getBoundingClientRect();
+            const itemCenter = itemRect.left + itemRect.width / 2;
+            const distance = Math.abs(carouselCenter - itemCenter);
+            const maxDistance = carouselRect.width / 2;
+            const blurAmount = (distance / maxDistance) * 8; // Max 8px blur
+            
+            const card = item.querySelector('.service-card');
+            if (card) {
+                if (blurAmount > 1) {
+                    card.classList.add('blurred');
+                    card.style.filter = `blur(${blurAmount}px)`;
+                } else {
+                    card.classList.remove('blurred');
+                    card.style.filter = 'blur(0px)';
+                }
+            }
+        });
+    };
+    
+    carousel.addEventListener('scroll', updateCarouselBlur);
+    carousel.addEventListener('scrollend', updateCarouselBlur);
+    // Call once on load
+    setTimeout(updateCarouselBlur, 100);
+}
+
 // Handle window resize
 let resizeTimer;
 window.addEventListener('resize', () => {
