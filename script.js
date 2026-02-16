@@ -114,7 +114,6 @@ const galleryItems = document.querySelectorAll('.gallery-item');
 galleryItems.forEach(item => {
     item.addEventListener('click', () => {
         // This is where you could add a lightbox/modal functionality
-        console.log('Gallery item clicked');
     });
 });
 
@@ -142,7 +141,6 @@ window.addEventListener('scroll', () => {
 // Preload images for better performance
 window.addEventListener('load', () => {
     // Add any image preloading logic here if needed
-    console.log('Page loaded successfully');
 });
 
 // Handle window resize
