@@ -180,7 +180,7 @@ window.addEventListener('load', () => {
     // Add any image preloading logic here if needed
 });
 
-// Carousel Blur Effect on Scroll
+// Infinite Scrolling Carousel Animation
 const carousel = document.querySelector('.carousel');
 if (carousel) {
     const updateCarouselBlur = () => {
@@ -208,9 +208,55 @@ if (carousel) {
         });
     };
     
+    // Calculate total width of one set of items
+    const getCarouselWidth = () => {
+        const itemWidth = carousel.querySelector('.carousel-item').offsetWidth;
+        const gap = 40; // 2.5rem = 40px
+        const itemsInSet = 6; // Original number of items before duplicates
+        return (itemWidth + gap) * itemsInSet;
+    };
+    
+    // Auto-scroll animation
+    let isAutoScrolling = true;
+    let currentScroll = 0;
+    const carouselWidth = getCarouselWidth();
+    
+    const autoScroll = () => {
+        if (isAutoScrolling) {
+            currentScroll += 2.5;
+            carousel.scrollLeft = currentScroll;
+            
+            // Reset to beginning when reaching the duplicated items
+            if (currentScroll >= carouselWidth) {
+                currentScroll = 0;
+                carousel.scrollLeft = 0;
+            }
+        }
+        requestAnimationFrame(autoScroll);
+    };
+    
+    // Start auto-scroll
+    autoScroll();
+    
+    // Pause on user interaction
+    carousel.addEventListener('mousedown', () => {
+        isAutoScrolling = false;
+    });
+    
+    carousel.addEventListener('touchstart', () => {
+        isAutoScrolling = false;
+    });
+    
+    // Resume after user stops interacting
+    let resumeTimeout;
+    carousel.addEventListener('mousemove', () => {
+        clearTimeout(resumeTimeout);
+        resumeTimeout = setTimeout(() => {
+            isAutoScrolling = true;
+        }, 3000);
+    });
+    
     carousel.addEventListener('scroll', updateCarouselBlur);
-    carousel.addEventListener('scrollend', updateCarouselBlur);
-    // Call once on load
     setTimeout(updateCarouselBlur, 100);
 }
 
