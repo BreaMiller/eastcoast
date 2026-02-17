@@ -223,7 +223,7 @@ if (carousel) {
     
     const autoScroll = () => {
         if (isAutoScrolling) {
-            currentScroll += 2.5;
+            currentScroll += 3.5;
             carousel.scrollLeft = currentScroll;
             
             // Reset to beginning when reaching the duplicated items
