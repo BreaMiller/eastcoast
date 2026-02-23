@@ -274,7 +274,7 @@ body {
 
 .hero-content {
     position: relative;
-    text-align: center;
+    text-align: left;
     color: white;
     z-index: 2;
     max-width: 800px;
@@ -283,7 +283,7 @@ body {
 
 .hero-title {
     font-family: 'Helvetica Neue', -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: 3.75rem;
+    font-size: 7.5rem;
     font-weight: 700;
     margin-bottom: 1.5rem;
     line-height: 1.1;
@@ -1072,7 +1072,7 @@ body {
 /* Responsive Design */
 @media (max-width: 968px) {
     .hero-title {
-        font-size: 2.75rem;
+        font-size: 5rem;
     }
     
     .about-content,
@@ -1129,7 +1129,7 @@ body {
     }
     
     .hero-title {
-        font-size: 2.25rem;
+        font-size: 3.5rem;
     }
     
     .hero-subtitle {
@@ -1180,7 +1180,7 @@ body {
 
 @media (max-width: 480px) {
     .hero-title {
-        font-size: 1.75rem;
+        font-size: 2.5rem;
     }
     
     .section-header h2 {
