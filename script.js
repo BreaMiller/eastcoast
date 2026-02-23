@@ -373,26 +373,40 @@ faqQuestions.forEach(question => {
     });
 });
 
-// Scroll Blur Animation with Intersection Observer
+// Scroll Blur Animation - Progressive Blur Based on Visibility
 const scrollBlurElements = document.querySelectorAll('.scroll-blur');
 
-const scrollBlurObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            // Element is in view
-            entry.target.classList.add('in-view');
-        } else {
-            // Element is out of view
-            entry.target.classList.remove('in-view');
-        }
+function updateScrollBlur() {
+    scrollBlurElements.forEach(element => {
+        const rect = element.getBoundingClientRect();
+        const elementHeight = rect.height;
+        const windowHeight = window.innerHeight;
+        
+        // Calculate how much of the element is visible in the viewport
+        const topInView = Math.max(0, rect.top);
+        const bottomInView = Math.min(windowHeight, rect.bottom);
+        const visibleHeight = Math.max(0, bottomInView - topInView);
+        
+        // Calculate percentage visible (0 to 1)
+        let visibilityPercent = visibleHeight / windowHeight;
+        visibilityPercent = Math.min(1, Math.max(0, visibilityPercent));
+        
+        // Calculate blur amount: 10px when 0% visible, 0px when 100% visible
+        const blurAmount = (1 - visibilityPercent) * 10;
+        
+        // Calculate opacity: 0.6 when 0% visible, 1 when 100% visible
+        const opacity = 0.6 + (visibilityPercent * 0.4);
+        
+        // Apply the blur and opacity
+        element.style.filter = `blur(${blurAmount}px)`;
+        element.style.opacity = opacity;
     });
-}, {
-    threshold: 0.1
-});
+}
 
-scrollBlurElements.forEach(element => {
-    scrollBlurObserver.observe(element);
-});
+// Update on scroll
+window.addEventListener('scroll', updateScrollBlur);
+// Initial call
+updateScrollBlur();
 
 // Testimonials Carousel Auto-Scroll
 const testimonialsCarousel = document.querySelector('.testimonials-carousel');

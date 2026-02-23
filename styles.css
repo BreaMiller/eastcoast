@@ -115,11 +115,7 @@
 .scroll-blur {
     filter: blur(10px);
     opacity: 0.6;
-}
-
-.scroll-blur.in-view {
-    filter: blur(0px);
-    opacity: 1;
+    transition: filter 0.1s ease, opacity 0.1s ease;
 }
 
 :root {
