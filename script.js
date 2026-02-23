@@ -228,23 +228,20 @@ if (carousel) {
         
         // Auto-scroll with infinite loop detection
         let isAutoScrolling = true;
-        let lastScrollLeft = 0;
         const oneSetWidth = itemWidth * itemCount;
+        let targetScroll = oneSetWidth * 2;
         
         // Start in the middle
-        let targetScroll = oneSetWidth * 2;
         carousel.scrollLeft = targetScroll;
-        lastScrollLeft = targetScroll;
         
+        // Continuous auto-scroll function
         const autoScroll = () => {
             if (isAutoScrolling) {
                 targetScroll += 2.5;
                 carousel.scrollLeft = targetScroll;
                 
-                // Check if we need to reset scroll position
-                const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+                // Reset to middle when reaching the end
                 if (targetScroll >= oneSetWidth * 3.5) {
-                    // Jump back to middle set seamlessly
                     targetScroll = oneSetWidth * 1.5;
                     carousel.scrollLeft = targetScroll;
                 }
@@ -252,31 +249,28 @@ if (carousel) {
             requestAnimationFrame(autoScroll);
         };
         
+        // Start the auto-scroll
         autoScroll();
         
-        // Pause on interaction
-        carousel.addEventListener('mousedown', () => {
+        // Pause on mouse interaction
+        carousel.addEventListener('mouseenter', () => {
             isAutoScrolling = false;
         });
         
+        // Resume on mouse leave
+        carousel.addEventListener('mouseleave', () => {
+            isAutoScrolling = true;
+        });
+        
+        // Pause on touch
         carousel.addEventListener('touchstart', () => {
             isAutoScrolling = false;
         });
         
-        // Resume after user stops
-        let resumeTimeout;
-        carousel.addEventListener('mousemove', () => {
-            clearTimeout(resumeTimeout);
-            resumeTimeout = setTimeout(() => {
-                isAutoScrolling = true;
-            }, 3000);
-        });
-        
         carousel.addEventListener('touchend', () => {
-            clearTimeout(resumeTimeout);
-            resumeTimeout = setTimeout(() => {
+            setTimeout(() => {
                 isAutoScrolling = true;
-            }, 3000);
+            }, 2000);
         });
         
         // Update blur on scroll
