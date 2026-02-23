@@ -534,26 +534,24 @@ body {
 }
 
 .gallery-grid {
-    columns: 3;
-    column-gap: 2.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
 }
 
 .gallery-item {
     position: relative;
     border-radius: 12px;
     overflow: hidden;
-    margin-bottom: 2.5rem;
+    aspect-ratio: 4/3;
     cursor: pointer;
     box-shadow: var(--shadow);
     transition: box-shadow 0.3s ease;
-    break-inside: avoid;
-    display: inline-block;
-    width: 100%;
 }
 
 .gallery-placeholder {
     width: 100%;
-    min-height: 300px;
+    height: 100%;
     background-size: cover;
     background-position: center;
 }
@@ -640,6 +638,43 @@ body {
     background-position: center;
     border-radius: 12px;
     box-shadow: var(--shadow-lg);
+}
+
+/* Partnership Section */
+.partnership {
+    padding: 6rem 0;
+    background: #ffffff;
+    border-top: 1px solid var(--border-color);
+}
+
+.partnership-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+.partnership-image {
+    width: 100%;
+}
+
+.partnership-image img {
+    display: block;
+    width: 100%;
+}
+
+.partnership-text h3 {
+    font-size: 2.25rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-family: var(--font-secondary);
+    font-weight: 700;
+}
+
+.partnership-text p {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--text-color);
 }
 
 /* Testimonials Section */
@@ -1583,6 +1618,11 @@ body {
         gap: 3rem;
     }
     
+    .partnership-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
     .about-text {
         padding-right: 0;
     }
@@ -1650,7 +1690,7 @@ body {
     
     .services-grid,
     .gallery-grid {
-        columns: 1;
+        grid-template-columns: 1fr;
     }
     
     .testimonial-card {
