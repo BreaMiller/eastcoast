@@ -373,29 +373,29 @@ faqQuestions.forEach(question => {
     });
 });
 
-// Scroll Blur Animation - Progressive Blur Based on Visibility
+// Scroll Blur Animation - Sharp When Section is Centered
 const scrollBlurElements = document.querySelectorAll('.scroll-blur');
 
 function updateScrollBlur() {
     scrollBlurElements.forEach(element => {
         const rect = element.getBoundingClientRect();
-        const elementHeight = rect.height;
-        const windowHeight = window.innerHeight;
+        const elementCenter = rect.top + rect.height / 2;
+        const viewportCenter = window.innerHeight / 2;
         
-        // Calculate how much of the element is visible in the viewport
-        const topInView = Math.max(0, rect.top);
-        const bottomInView = Math.min(windowHeight, rect.bottom);
-        const visibleHeight = Math.max(0, bottomInView - topInView);
+        // Calculate distance from viewport center
+        const distanceFromCenter = Math.abs(elementCenter - viewportCenter);
         
-        // Calculate percentage visible (0 to 1)
-        let visibilityPercent = visibleHeight / windowHeight;
-        visibilityPercent = Math.min(1, Math.max(0, visibilityPercent));
+        // Maximum distance we care about (when section is completely off-screen)
+        const maxDistance = window.innerHeight;
         
-        // Calculate blur amount: 10px when 0% visible, 0px when 100% visible
-        const blurAmount = (1 - visibilityPercent) * 10;
+        // Calculate normalized distance (0 to 1)
+        let normalizedDistance = Math.min(distanceFromCenter / maxDistance, 1);
         
-        // Calculate opacity: 0.6 when 0% visible, 1 when 100% visible
-        const opacity = 0.6 + (visibilityPercent * 0.4);
+        // Calculate blur amount: 10px at max distance, 0px at center
+        const blurAmount = normalizedDistance * 10;
+        
+        // Calculate opacity: 0.6 when far from center, 1 when centered
+        const opacity = 0.6 + ((1 - normalizedDistance) * 0.4);
         
         // Apply the blur and opacity
         element.style.filter = `blur(${blurAmount}px)`;
@@ -403,11 +403,17 @@ function updateScrollBlur() {
     });
 }
 
-// Update on scroll
-window.addEventListener('scroll', updateScrollBlur);
+// Use requestAnimationFrame for smooth 60fps updates
+let scrollAnimationId;
+function scheduleScrollBlurUpdate() {
+    if (scrollAnimationId) cancelAnimationFrame(scrollAnimationId);
+    scrollAnimationId = requestAnimationFrame(updateScrollBlur);
+}
+
+// Update on scroll with RAF for smooth performance
+window.addEventListener('scroll', scheduleScrollBlurUpdate, { passive: true });
 // Initial call
 updateScrollBlur();
-
 // Testimonials Carousel Auto-Scroll
 const testimonialsCarousel = document.querySelector('.testimonials-carousel');
 if (testimonialsCarousel) {
