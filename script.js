@@ -272,3 +272,60 @@ window.addEventListener('resize', () => {
         }
     }, 250);
 });
+
+// Chatbot functionality
+const chatbotToggle = document.getElementById('chatbot-toggle');
+const chatbotWidget = document.getElementById('chatbot-widget');
+const chatbotClose = document.getElementById('chatbot-close');
+const chatbotInput = document.getElementById('chatbot-input');
+const chatbotSend = document.getElementById('chatbot-send');
+const chatbotBody = document.querySelector('.chatbot-body');
+
+chatbotToggle.addEventListener('click', () => {
+    chatbotWidget.classList.toggle('active');
+    chatbotToggle.classList.toggle('hidden');
+    chatbotToggle.setAttribute('aria-expanded', chatbotWidget.classList.contains('active'));
+    if (chatbotWidget.classList.contains('active')) {
+        chatbotInput.focus();
+    }
+});
+
+chatbotClose.addEventListener('click', () => {
+    chatbotWidget.classList.remove('active');
+    chatbotToggle.classList.remove('hidden');
+    chatbotToggle.setAttribute('aria-expanded', 'false');
+});
+
+const sendMessage = () => {
+    const message = chatbotInput.value.trim();
+    if (message) {
+        // Add user message
+        const userMessageDiv = document.createElement('div');
+        userMessageDiv.className = 'chatbot-message user-message';
+        userMessageDiv.innerHTML = `<p>${message}</p>`;
+        chatbotBody.appendChild(userMessageDiv);
+        
+        // Clear input
+        chatbotInput.value = '';
+        
+        // Scroll to bottom
+        chatbotBody.scrollTop = chatbotBody.scrollHeight;
+        
+        // Simulate bot response
+        setTimeout(() => {
+            const botMessageDiv = document.createElement('div');
+            botMessageDiv.className = 'chatbot-message bot-message';
+            botMessageDiv.innerHTML = '<p>Thanks for reaching out! 📸 Our team will get back to you soon. In the meantime, check out our gallery or services above!</p>';
+            chatbotBody.appendChild(botMessageDiv);
+            chatbotBody.scrollTop = chatbotBody.scrollHeight;
+        }, 500);
+    }
+};
+
+chatbotSend.addEventListener('click', sendMessage);
+chatbotInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        sendMessage();
+    }
+});
+

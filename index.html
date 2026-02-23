@@ -408,6 +408,30 @@
         </div>
     </div>
 
+    <!-- Chatbot Widget -->
+    <div class="chatbot-widget" id="chatbot-widget" aria-label="Chat with us">
+        <div class="chatbot-header">
+            <h3>Chat with Us</h3>
+            <button class="chatbot-close" id="chatbot-close" aria-label="Close chat">×</button>
+        </div>
+        <div class="chatbot-body">
+            <div class="chatbot-message bot-message">
+                <p>Hello! 👋 How can we help you today?</p>
+            </div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chatbot-input" placeholder="Type a message..." aria-label="Message input">
+            <button id="chatbot-send" aria-label="Send message">Send</button>
+        </div>
+    </div>
+
+    <!-- Chatbot Toggle Button -->
+    <button class="chatbot-toggle" id="chatbot-toggle" aria-label="Open chat" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+        </svg>
+    </button>
+
     <script src="script.js"></script>
 </body>
 </html>
