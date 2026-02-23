@@ -183,106 +183,106 @@ window.addEventListener('load', () => {
 // Infinite Scrolling Carousel Animation
 const carousel = document.querySelector('.carousel');
 if (carousel) {
-    // Remove any existing duplicates from HTML (class selector to identify originals)
-    const container = carousel.parentElement;
+    // Store original items
+    const originalItems = Array.from(carousel.querySelectorAll('.carousel-item'));
+    const itemCount = originalItems.length;
     
-    // Get original items before any duplicates
-    const allItems = carousel.querySelectorAll('.carousel-item');
-    const originalCount = Math.ceil(allItems.length / 2); // Assuming HTML has 1x originals + duplicates
-    
-    // Create a fresh set for infinite scroll
-    const originalItems = Array.from(allItems).slice(0, originalCount);
-    
-    // Clear carousel and rebuild with proper duplicates
-    carousel.innerHTML = '';
-    
-    // Add items 3x for smooth infinite scroll (previous, current, next)
-    for (let i = 0; i < 3; i++) {
-        originalItems.forEach(item => {
-            const clone = item.cloneNode(true);
-            carousel.appendChild(clone);
-        });
-    }
-    
-    const updateCarouselBlur = () => {
-        const carouselRect = carousel.getBoundingClientRect();
-        const carouselCenter = carouselRect.left + carouselRect.width / 2;
+    if (itemCount > 0) {
+        // Get dimensions
+        const getItemWidth = () => {
+            const item = carousel.querySelector('.carousel-item');
+            return item ? item.offsetWidth + 40 : 0; // 40px gap
+        };
         
-        const items = carousel.querySelectorAll('.carousel-item');
-        items.forEach(item => {
-            const itemRect = item.getBoundingClientRect();
-            const itemCenter = itemRect.left + itemRect.width / 2;
-            const distance = Math.abs(carouselCenter - itemCenter);
-            const maxDistance = carouselRect.width / 2;
-            const blurAmount = (distance / maxDistance) * 8; // Max 8px blur
+        const itemWidth = getItemWidth();
+        
+        // Clear and rebuild carousel with infinite clones
+        carousel.innerHTML = '';
+        
+        // Create 5 sets of items for infinite scroll buffer
+        for (let set = 0; set < 5; set++) {
+            originalItems.forEach(item => {
+                const clone = item.cloneNode(true);
+                carousel.appendChild(clone);
+            });
+        }
+        
+        // Blur effect function
+        const updateCarouselBlur = () => {
+            const carouselRect = carousel.getBoundingClientRect();
+            const carouselCenter = carouselRect.left + carouselRect.width / 2;
             
-            const card = item.querySelector('.service-card');
-            if (card) {
-                if (blurAmount > 1) {
-                    card.classList.add('blurred');
-                    card.style.filter = `blur(${blurAmount}px)`;
-                } else {
-                    card.classList.remove('blurred');
-                    card.style.filter = 'blur(0px)';
+            carousel.querySelectorAll('.carousel-item').forEach(item => {
+                const itemRect = item.getBoundingClientRect();
+                const itemCenter = itemRect.left + itemRect.width / 2;
+                const distance = Math.abs(carouselCenter - itemCenter);
+                const maxDistance = carouselRect.width / 2;
+                const blurAmount = (distance / maxDistance) * 8;
+                
+                const card = item.querySelector('.service-card');
+                if (card) {
+                    card.style.filter = blurAmount > 1 ? `blur(${blurAmount}px)` : 'blur(0px)';
+                }
+            });
+        };
+        
+        // Auto-scroll with infinite loop detection
+        let isAutoScrolling = true;
+        let lastScrollLeft = 0;
+        const oneSetWidth = itemWidth * itemCount;
+        
+        // Start in the middle
+        let targetScroll = oneSetWidth * 2;
+        carousel.scrollLeft = targetScroll;
+        lastScrollLeft = targetScroll;
+        
+        const autoScroll = () => {
+            if (isAutoScrolling) {
+                targetScroll += 2.5;
+                carousel.scrollLeft = targetScroll;
+                
+                // Check if we need to reset scroll position
+                const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+                if (targetScroll >= oneSetWidth * 3.5) {
+                    // Jump back to middle set seamlessly
+                    targetScroll = oneSetWidth * 1.5;
+                    carousel.scrollLeft = targetScroll;
                 }
             }
+            requestAnimationFrame(autoScroll);
+        };
+        
+        autoScroll();
+        
+        // Pause on interaction
+        carousel.addEventListener('mousedown', () => {
+            isAutoScrolling = false;
         });
-    };
-    
-    // Calculate width of one complete set
-    const getOneSetWidth = () => {
-        const itemWidth = carousel.querySelector('.carousel-item').offsetWidth;
-        const gap = 40; // 2.5rem = 40px
-        return (itemWidth + gap) * originalCount;
-    };
-    
-    // Auto-scroll animation with proper infinite scroll
-    let isAutoScrolling = true;
-    let currentScroll = 0;
-    const oneSetWidth = getOneSetWidth();
-    
-    // Start from the middle set
-    carousel.scrollLeft = oneSetWidth;
-    currentScroll = oneSetWidth;
-    
-    const autoScroll = () => {
-        if (isAutoScrolling) {
-            currentScroll += 3.5;
-            carousel.scrollLeft = currentScroll;
-            
-            // Seamless infinite scroll: reset to middle when reaching end
-            const totalWidth = oneSetWidth * 3;
-            if (currentScroll >= oneSetWidth * 2) {
-                currentScroll = oneSetWidth;
-                carousel.scrollLeft = currentScroll;
-            }
-        }
-        requestAnimationFrame(autoScroll);
-    };
-    
-    // Start auto-scroll
-    autoScroll();
-    
-    // Pause on user interaction
-    carousel.addEventListener('mousedown', () => {
-        isAutoScrolling = false;
-    });
-    
-    carousel.addEventListener('touchstart', () => {
-        isAutoScrolling = false;
-    });
-    
-    // Resume after user stops interacting
-    let resumeTimeout;
-    carousel.addEventListener('mousemove', () => {
-        clearTimeout(resumeTimeout);
-        resumeTimeout = setTimeout(() => {
-            isAutoScrolling = true;
-        }, 3000);
-    });
-    
-    carousel.addEventListener('scroll', updateCarouselBlur);
-    setTimeout(updateCarouselBlur, 100);
+        
+        carousel.addEventListener('touchstart', () => {
+            isAutoScrolling = false;
+        });
+        
+        // Resume after user stops
+        let resumeTimeout;
+        carousel.addEventListener('mousemove', () => {
+            clearTimeout(resumeTimeout);
+            resumeTimeout = setTimeout(() => {
+                isAutoScrolling = true;
+            }, 3000);
+        });
+        
+        carousel.addEventListener('touchend', () => {
+            clearTimeout(resumeTimeout);
+            resumeTimeout = setTimeout(() => {
+                isAutoScrolling = true;
+            }, 3000);
+        });
+        
+        // Update blur on scroll
+        carousel.addEventListener('scroll', updateCarouselBlur, { passive: true });
+        setTimeout(updateCarouselBlur, 100);
+    }
 }
 
 // Handle window resize
