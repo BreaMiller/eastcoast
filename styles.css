@@ -72,6 +72,17 @@
     justify-content: center;
 }
 
+.alert-bar.hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.alert-bar {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
 .alert-bar p {
     margin: 0;
     letter-spacing: 0px;

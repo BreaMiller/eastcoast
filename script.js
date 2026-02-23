@@ -88,19 +88,32 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Navbar Background on Scroll
+// Navbar and Alert Bar Hide on Scroll Down, Show on Scroll Up
 const navbar = document.querySelector('.navbar');
+const alertBar = document.querySelector('.alert-bar');
 let lastScroll = 0;
 
 window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
     
+    // Update navbar background
     if (currentScroll > 100) {
         navbar.style.background = 'rgba(255, 255, 255, 0.98)';
         navbar.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
     } else {
         navbar.style.background = 'rgba(255, 255, 255, 0.95)';
         navbar.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+    }
+    
+    // Hide navbar and alert bar when scrolling down, show when scrolling up
+    if (currentScroll > lastScroll && currentScroll > 100) {
+        // Scrolling down
+        navbar.classList.add('hidden');
+        if (alertBar) alertBar.classList.add('hidden');
+    } else if (currentScroll < lastScroll) {
+        // Scrolling up
+        navbar.classList.remove('hidden');
+        if (alertBar) alertBar.classList.remove('hidden');
     }
     
     lastScroll = currentScroll;
