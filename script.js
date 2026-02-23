@@ -394,6 +394,7 @@ class ScrollBlurReveal {
         this.maxBlur = 12;       // px blur when out of view
         this.minOpacity = 0.5;   // opacity when out of view
         this.maxOpacity = 1.0;   // opacity when fully visible
+        this.graceZone = 0.3;    // Extended focus window (30% viewport margin)
         this.init();
     }
 
@@ -411,19 +412,35 @@ class ScrollBlurReveal {
     calculateVisibility(element) {
         const rect = element.getBoundingClientRect();
         const viewportHeight = window.innerHeight;
+        
+        // Extended visibility calculation with grace zone
+        // Sections stay in focus longer before blurring at the edges
+        const gracePixels = viewportHeight * this.graceZone;
+        const extendedTop = -gracePixels;
+        const extendedBottom = viewportHeight + gracePixels;
 
-        // Check if completely out of view
-        if (rect.bottom < 0 || rect.top > viewportHeight) {
+        // Check if completely out of extended view
+        if (rect.bottom < extendedTop || rect.top > extendedBottom) {
             return 0; // Not visible at all
         }
 
-        // Calculate how much of element is in viewport
+        // Calculate how much of element is in viewport (not extended)
         const visibleTop = Math.max(0, rect.top);
         const visibleBottom = Math.min(viewportHeight, rect.bottom);
         const visibleHeight = visibleBottom - visibleTop;
         
-        // Return visibility as 0-1 (0 = not visible, 1 = fully visible in viewport)
-        return Math.min(1, visibleHeight / viewportHeight);
+        // Map to 0-1 range with grace zone
+        // Elements stay mostly clear even when partially off-screen
+        const rawVisibility = Math.max(0, Math.min(1, visibleHeight / viewportHeight));
+        
+        // Apply grace zone: extended focus window
+        let visibility = rawVisibility;
+        if (visibleHeight > 0) {
+            // Add grace zone effect - stay sharp longer
+            visibility = Math.min(1, rawVisibility + this.graceZone);
+        }
+        
+        return Math.max(0, Math.min(1, visibility));
     }
 
     update(element) {
