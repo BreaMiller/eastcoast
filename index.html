@@ -58,7 +58,7 @@
 <body>
     <!-- Alert Bar -->
     <div class="alert-bar" role="banner">
-        <p>📅 Book a studio session, we're open year-round</p>
+        <p>📅 <button class="alert-link" id="book-session-btn" aria-label="Book a studio session">Book a studio session</button>, we're open year-round</p>
     </div>
 
     <!-- Skip to main content link for accessibility -->
@@ -449,7 +449,7 @@
                 </div>
                 <div class="footer-section">
                     <h4>Newsletter</h4>
-                    <p>Subscribe to our newsletter for special offers and updates</p>
+                    <p>Subscribe for special offers and updates</p>
                     <form class="newsletter-form" aria-label="Newsletter subscription">
                         <label for="footer-newsletter-email" class="sr-only">Your email address</label>
                         <input type="email" id="footer-newsletter-email" name="email" placeholder="Your email" aria-label="Your email address" required>
@@ -462,6 +462,37 @@
             </div>
         </div>
     </footer>
+
+    <!-- Calendar Booking Modal -->
+    <div id="calendar-modal" class="calendar-modal" aria-hidden="true" role="dialog" aria-labelledby="calendar-title">
+        <div class="calendar-overlay"></div>
+        <div class="calendar-content">
+            <button class="calendar-close" id="calendar-close-btn" aria-label="Close calendar">×</button>
+            <h2 id="calendar-title">Book Your Studio Session</h2>
+            <p>Select a date to get started</p>
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <button class="calendar-prev" id="calendar-prev">←</button>
+                    <h3 id="calendar-month">March 2026</h3>
+                    <button class="calendar-next" id="calendar-next">→</button>
+                </div>
+                <div class="calendar-weekdays">
+                    <div>Sun</div>
+                    <div>Mon</div>
+                    <div>Tue</div>
+                    <div>Wed</div>
+                    <div>Thu</div>
+                    <div>Fri</div>
+                    <div>Sat</div>
+                </div>
+                <div class="calendar-dates" id="calendar-dates"></div>
+            </div>
+            <div class="calendar-footer">
+                <p id="selected-date">No date selected</p>
+                <button class="btn btn-primary" id="confirm-booking">Confirm Booking</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Contact Modal -->
     <div id="contact-modal" class="modal" aria-hidden="true" aria-labelledby="modal-title" role="dialog">

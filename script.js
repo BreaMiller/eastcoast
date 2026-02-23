@@ -438,3 +438,129 @@ if (testimonialsCarousel) {
     });
 }
 
+// Calendar Booking Modal
+const bookSessionBtn = document.getElementById('book-session-btn');
+const calendarModal = document.getElementById('calendar-modal');
+const calendarCloseBtn = document.getElementById('calendar-close-btn');
+const calendarOverlay = document.querySelector('.calendar-overlay');
+const calendarPrev = document.getElementById('calendar-prev');
+const calendarNext = document.getElementById('calendar-next');
+const calendarDates = document.getElementById('calendar-dates');
+const calendarMonth = document.getElementById('calendar-month');
+const selectedDateDisplay = document.getElementById('selected-date');
+const confirmBookingBtn = document.getElementById('confirm-booking');
+
+let currentDate = new Date();
+let selectedDate = null;
+
+const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'];
+
+function renderCalendar() {
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth();
+    
+    calendarMonth.textContent = `${monthNames[month]} ${year}`;
+    calendarDates.innerHTML = '';
+    
+    // First day of month and number of days
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    
+    // Empty cells before first day
+    for (let i = 0; i < firstDay; i++) {
+        const emptyCell = document.createElement('div');
+        emptyCell.className = 'calendar-date disabled';
+        calendarDates.appendChild(emptyCell);
+    }
+    
+    // Date cells
+    for (let day = 1; day <= daysInMonth; day++) {
+        const dateBtn = document.createElement('button');
+        dateBtn.className = 'calendar-date';
+        dateBtn.textContent = day;
+        
+        const cellDate = new Date(year, month, day);
+        
+        // Disable past dates
+        if (cellDate < new Date()) {
+            dateBtn.classList.add('disabled');
+            dateBtn.disabled = true;
+        } else {
+            dateBtn.addEventListener('click', () => {
+                document.querySelectorAll('.calendar-date.selected').forEach(el => {
+                    el.classList.remove('selected');
+                });
+                dateBtn.classList.add('selected');
+                selectedDate = cellDate;
+                selectedDateDisplay.textContent = cellDate.toLocaleDateString('en-US', {
+                    weekday: 'long',
+                    month: 'long',
+                    day: 'numeric',
+                    year: 'numeric'
+                });
+            });
+        }
+        
+        calendarDates.appendChild(dateBtn);
+    }
+}
+
+function openCalendar() {
+    calendarModal.classList.add('active');
+    calendarModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    renderCalendar();
+}
+
+function closeCalendar() {
+    calendarModal.classList.remove('active');
+    calendarModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    selectedDate = null;
+    selectedDateDisplay.textContent = 'No date selected';
+}
+
+bookSessionBtn.addEventListener('click', openCalendar);
+calendarCloseBtn.addEventListener('click', closeCalendar);
+calendarOverlay.addEventListener('click', closeCalendar);
+calendarPrev.addEventListener('click', () => {
+    currentDate.setMonth(currentDate.getMonth() - 1);
+    renderCalendar();
+});
+calendarNext.addEventListener('click', () => {
+    currentDate.setMonth(currentDate.getMonth() + 1);
+    renderCalendar();
+});
+confirmBookingBtn.addEventListener('click', () => {
+    if (selectedDate) {
+        alert(`Booking confirmed for ${selectedDate.toLocaleDateString()}. Thank you!`);
+        closeCalendar();
+    } else {
+        alert('Please select a date first.');
+    }
+});
+
+// Navbar Hide/Reveal on Scroll with Fade
+const navbar = document.querySelector('.navbar');
+let lastScrollTop = 0;
+let scrollDirection = 'up';
+
+window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+    
+    // Determine scroll direction
+    if (currentScroll > lastScrollTop && currentScroll > 100) {
+        // Scrolling DOWN - hide navbar
+        scrollDirection = 'down';
+        navbar.classList.remove('visible');
+    } else if (currentScroll < lastScrollTop) {
+        // Scrolling UP - show navbar
+        scrollDirection = 'up';
+        navbar.classList.add('visible');
+    }
+    
+    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+});
+
+
