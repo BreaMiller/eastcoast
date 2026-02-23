@@ -534,24 +534,26 @@ body {
 }
 
 .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2.5rem;
+    columns: 3;
+    column-gap: 2.5rem;
 }
 
 .gallery-item {
     position: relative;
     border-radius: 12px;
     overflow: hidden;
-    aspect-ratio: 4/3;
+    margin-bottom: 2.5rem;
     cursor: pointer;
     box-shadow: var(--shadow);
     transition: box-shadow 0.3s ease;
+    break-inside: avoid;
+    display: inline-block;
+    width: 100%;
 }
 
 .gallery-placeholder {
     width: 100%;
-    height: 100%;
+    min-height: 300px;
     background-size: cover;
     background-position: center;
 }
@@ -1648,7 +1650,7 @@ body {
     
     .services-grid,
     .gallery-grid {
-        grid-template-columns: 1fr;
+        columns: 1;
     }
     
     .testimonial-card {
