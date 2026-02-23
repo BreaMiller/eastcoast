@@ -183,6 +183,16 @@ window.addEventListener('load', () => {
 // Infinite Scrolling Carousel Animation
 const carousel = document.querySelector('.carousel');
 if (carousel) {
+    // Clone carousel items for infinite loop
+    const carouselItems = carousel.querySelectorAll('.carousel-item');
+    const itemsArray = Array.from(carouselItems);
+    
+    // Clone items and append them for seamless infinite scroll
+    itemsArray.forEach(item => {
+        const clone = item.cloneNode(true);
+        carousel.appendChild(clone);
+    });
+    
     const updateCarouselBlur = () => {
         const carouselRect = carousel.getBoundingClientRect();
         const carouselCenter = carouselRect.left + carouselRect.width / 2;
@@ -216,7 +226,7 @@ if (carousel) {
         return (itemWidth + gap) * itemsInSet;
     };
     
-    // Auto-scroll animation
+    // Auto-scroll animation with seamless loop
     let isAutoScrolling = true;
     let currentScroll = 0;
     const carouselWidth = getCarouselWidth();
@@ -226,10 +236,12 @@ if (carousel) {
             currentScroll += 3.5;
             carousel.scrollLeft = currentScroll;
             
-            // Reset to beginning when reaching the duplicated items
-            if (currentScroll >= carouselWidth) {
-                currentScroll = 0;
+            // Seamless infinite scroll: when reaching cloned items, jump back smoothly
+            const maxScroll = carouselWidth;
+            if (currentScroll >= maxScroll) {
+                // Reset to beginning without animation for seamless loop
                 carousel.scrollLeft = 0;
+                currentScroll = 0;
             }
         }
         requestAnimationFrame(autoScroll);
