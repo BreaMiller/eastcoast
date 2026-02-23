@@ -625,6 +625,14 @@ body {
     padding-right: 2rem;
 }
 
+.about-text .section-header {
+    text-align: left;
+}
+
+.about-text .contact-modal-trigger {
+    margin-top: 2rem;
+}
+
 .about-description {
     font-size: 1rem;
     line-height: 1.7;
