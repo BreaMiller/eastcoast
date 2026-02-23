@@ -123,8 +123,6 @@
 
 /* Smooth Scroll Blur Animation */
 .scroll-blur {
-    filter: blur(12px);
-    opacity: 0.6;
     transition: filter 0.6s ease-out, opacity 0.6s ease-out;
 }
 

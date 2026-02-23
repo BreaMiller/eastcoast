@@ -409,36 +409,22 @@ faqQuestions.forEach(question => {
 class ScrollBlurReveal {
     constructor() {
         this.elements = document.querySelectorAll('.scroll-blur');
-        this.minBlur = 0;      // px blur when fully visible
-        this.maxBlur = 12;     // px blur when out of view
-        this.minOpacity = 0.6; // opacity when out of view
-        this.maxOpacity = 1.0; // opacity when fully visible
+        this.minBlur = 0;        // px blur when fully visible
+        this.maxBlur = 12;       // px blur when out of view
+        this.minOpacity = 0.5;   // opacity when out of view
+        this.maxOpacity = 1.0;   // opacity when fully visible
         this.init();
     }
 
     init() {
-        // Use IntersectionObserver for better performance
-        this.observeElements();
-        // Also listen to scroll events for real-time updates
-        window.addEventListener('scroll', () => this.updateAll(), { passive: true });
+        // Bind the update method to preserve 'this' context
+        this.updateAll = this.updateAll.bind(this);
+        
+        // Listen to scroll events for real-time updates
+        window.addEventListener('scroll', this.updateAll, { passive: true });
+        
+        // Call immediately to set initial state
         this.updateAll();
-    }
-
-    observeElements() {
-        // Create intersection observer to detect when elements enter viewport
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // Element is in viewport
-                    this.update(entry.target);
-                }
-            });
-        }, {
-            threshold: 0,
-            rootMargin: '50px'
-        });
-
-        this.elements.forEach(el => observer.observe(el));
     }
 
     calculateVisibility(element) {
@@ -462,10 +448,10 @@ class ScrollBlurReveal {
     update(element) {
         const visibility = this.calculateVisibility(element);
         
-        // Linear interpolation for blur
+        // Linear interpolation for blur: more visible = less blur
         const blur = this.maxBlur - (visibility * (this.maxBlur - this.minBlur));
         
-        // Linear interpolation for opacity
+        // Linear interpolation for opacity: more visible = more opaque
         const opacity = this.minOpacity + (visibility * (this.maxOpacity - this.minOpacity));
         
         // Apply effects
