@@ -643,4 +643,96 @@ window.addEventListener('scroll', () => {
     lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
 });
 
+// Scroll Reveal Animation - Word by Word Blur and Opacity Effect
+class ScrollRevealAnimation {
+    constructor() {
+        this.sections = document.querySelectorAll('[class*="scroll-blur"]');
+        this.animatingElements = new Map();
+        this.init();
+    }
+
+    init() {
+        // Process each section's heading
+        this.sections.forEach(section => {
+            const heading = section.querySelector('h2');
+            if (heading) {
+                this.processHeading(heading, section);
+            }
+        });
+
+        // Listen for scroll with passive flag for performance
+        window.addEventListener('scroll', () => this.updateAnimations(), { passive: true });
+        window.addEventListener('resize', () => this.updateAnimations(), { passive: true });
+    }
+
+    processHeading(heading, section) {
+        const originalText = heading.textContent;
+        const words = originalText.split(/(\s+)/);
+        
+        // Create wrapper for structured layout
+        heading.innerHTML = '';
+        const wrapper = document.createElement('p');
+        wrapper.className = 'scroll-reveal-text';
+        heading.appendChild(wrapper);
+        heading.classList.add('scroll-reveal');
+
+        // Create span for each word
+        words.forEach(word => {
+            if (word.trim()) {
+                const span = document.createElement('span');
+                span.className = 'scroll-reveal-word';
+                span.textContent = word;
+                wrapper.appendChild(span);
+                
+                if (!this.animatingElements.has(section)) {
+                    this.animatingElements.set(section, []);
+                }
+                this.animatingElements.get(section).push(span);
+            } else {
+                wrapper.appendChild(document.createTextNode(word));
+            }
+        });
+    }
+
+    updateAnimations() {
+        this.animatingElements.forEach((words, section) => {
+            const rect = section.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
+
+            // Calculate section visibility
+            if (rect.bottom < 0 || rect.top > viewportHeight) {
+                return; // Section not in view
+            }
+
+            // Calculate progress: 0 (section at bottom) to 1 (section at top)
+            const progress = Math.max(0, Math.min(1, 
+                (viewportHeight - rect.top) / (viewportHeight + rect.height)
+            ));
+
+            // Animate each word with stagger effect
+            words.forEach((word, index) => {
+                const staggerDelay = index * 0.05;
+                const wordProgress = Math.max(0, progress - staggerDelay);
+                
+                const opacity = 0.1 + (wordProgress * 0.9); // 0.1 to 1.0
+                const blur = 4 * (1 - wordProgress); // 4px to 0px
+                const rotation = 3 * (1 - wordProgress); // 3deg to 0deg
+
+                word.style.opacity = opacity;
+                word.style.filter = `blur(${blur}px)`;
+                word.style.transform = `rotate(${rotation}deg)`;
+            });
+        });
+    }
+}
+
+// Initialize scroll reveal animation
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        new ScrollRevealAnimation();
+    });
+} else {
+    new ScrollRevealAnimation();
+}
+
 
