@@ -53,10 +53,7 @@
 
 /* Alert Bar */
 .alert-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
+    position: static;
     background: linear-gradient(135deg, #FF5252 0%, #FF7043 50%, #FFA726 100%);
     color: white;
     padding: 10px 20px;
@@ -73,14 +70,11 @@
 }
 
 .alert-bar.hidden {
-    transform: translateY(-100%);
-    opacity: 0;
-    visibility: hidden;
-    transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+    display: none;
 }
 
 .alert-bar {
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .alert-bar p {
