@@ -111,13 +111,6 @@
     }
 }
 
-/* Scroll Blur Animation */
-.scroll-blur {
-    filter: blur(10px);
-    opacity: 0.6;
-    transition: filter 0.1s ease, opacity 0.1s ease;
-}
-
 :root {
     --primary-color: #169e9b;
     --secondary-color: #0f766e;

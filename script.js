@@ -373,58 +373,6 @@ faqQuestions.forEach(question => {
     });
 });
 
-// Smooth Scroll Blur Animation - Animate Sections Into View
-const scrollBlurElements = document.querySelectorAll('.scroll-blur');
-
-function updateScrollBlur() {
-    scrollBlurElements.forEach(element => {
-        const rect = element.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-        
-        // Calculate how far the section's top is from the top the viewport (0 = top of viewport, viewportHeight = bottom)
-        const elementTopPosition = rect.top;
-        
-        // When section enters from bottom (elementTopPosition > viewportHeight) to when it leaves from top (elementTopPosition < 0)
-        // Calculate a 0-1 value where:
-        // 1 = section is entering/leaving (blurry)
-        // 0 = section is in the middle of viewport (sharp)
-        
-        let blurFactor = 1;
-        
-        if (elementTopPosition < 0) {
-            // Section is scrolling past top - calculate blur based on how far past
-            blurFactor = Math.min(Math.abs(elementTopPosition) / (viewportHeight * 0.5), 1);
-        } else if (elementTopPosition > viewportHeight) {
-            // Section hasn't entered yet - fully blurry
-            blurFactor = 1;
-        } else {
-            // Section is in viewport - calculate how close to center
-            const centerPosition = viewportHeight / 2;
-            const distanceFromCenter = Math.abs(elementTopPosition - centerPosition);
-            const maxDistance = viewportHeight / 2;
-            blurFactor = Math.min(distanceFromCenter / maxDistance, 1);
-        }
-        
-        // Apply smooth blur animation
-        const blurAmount = blurFactor * 10; // 0px (sharp) to 10px (blurry)
-        const opacity = 0.6 + ((1 - blurFactor) * 0.4); // 0.6 (blurry) to 1.0 (sharp)
-        
-        element.style.filter = `blur(${blurAmount}px)`;
-        element.style.opacity = opacity;
-    });
-}
-
-// Use requestAnimationFrame for smooth 60fps updates
-let scrollAnimationId;
-function scheduleScrollBlurUpdate() {
-    if (scrollAnimationId) cancelAnimationFrame(scrollAnimationId);
-    scrollAnimationId = requestAnimationFrame(updateScrollBlur);
-}
-
-// Update on scroll with RAF for smooth performance
-window.addEventListener('scroll', scheduleScrollBlurUpdate, { passive: true });
-// Initial call
-updateScrollBlur();
 // Testimonials Carousel Auto-Scroll
 const testimonialsCarousel = document.querySelector('.testimonials-carousel');
 if (testimonialsCarousel) {
