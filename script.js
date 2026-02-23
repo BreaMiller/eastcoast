@@ -348,3 +348,27 @@ window.addEventListener('scroll', () => {
     
     lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
 });
+// FAQ Accordion Functionality
+const faqQuestions = document.querySelectorAll('.faq-question');
+
+faqQuestions.forEach(question => {
+    question.addEventListener('click', () => {
+        const faqItem = question.parentElement;
+        const isActive = faqItem.classList.contains('active');
+        
+        // Close all other FAQ items
+        document.querySelectorAll('.faq-item.active').forEach(item => {
+            if (item !== faqItem) {
+                item.classList.remove('active');
+                item.querySelector('.faq-answer').style.display = 'none';
+                item.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+            }
+        });
+        
+        // Toggle current FAQ item
+        faqItem.classList.toggle('active');
+        const answer = question.nextElementSibling;
+        answer.style.display = isActive ? 'none' : 'block';
+        question.setAttribute('aria-expanded', !isActive);
+    });
+});

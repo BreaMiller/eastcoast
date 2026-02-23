@@ -59,10 +59,10 @@
     right: 0;
     background: linear-gradient(135deg, #FF5252 0%, #FF7043 50%, #FFA726 100%);
     color: white;
-    padding: 18px 20px;
+    padding: 10px 20px;
     text-align: center;
-    font-weight: 700;
-    font-size: 1.1rem;
+    font-weight: 400;
+    font-size: 0.95rem;
     box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
     animation: slideDown 0.5s ease-out;
     border-bottom: 3px solid #ff4500;
@@ -71,9 +71,8 @@
 
 .alert-bar p {
     margin: 0;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    font-size: 1rem;
+    letter-spacing: 0px;
+    font-size: 0.95rem;
 }
 
 @keyframes slideDown {
@@ -297,8 +296,9 @@ body {
     text-align: left;
     color: white;
     z-index: 2;
-    max-width: 1100px;
-    padding: 0 20px;
+    max-width: 700px;
+    padding: 0 0;
+    padding-left: 40px;
 }
 
 .hero-title {
@@ -750,6 +750,80 @@ body {
 .form-group textarea {
     resize: vertical;
     font-family: 'Inter', sans-serif;
+}
+
+/* FAQs Section */
+.faqs {
+    padding: 5rem 0;
+    background: #f9f9f9;
+}
+
+.faqs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.faq-item {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.faq-question {
+    width: 100%;
+    padding: 1.5rem;
+    background: white;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.3s ease;
+    font-family: 'Helvetica Neue', sans-serif;
+}
+
+.faq-question:hover {
+    background: #f5f5f5;
+}
+
+.faq-question:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: -2px;
+}
+
+.faq-question h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.faq-icon {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    font-weight: bold;
+    transition: transform 0.3s ease;
+    min-width: 24px;
+    text-align: right;
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(45deg);
+}
+
+.faq-answer {
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    color: var(--text-light);
+    line-height: 1.7;
+    font-size: 0.95rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.faq-answer p {
+    margin: 0;
 }
 
 /* Footer */
@@ -1262,6 +1336,10 @@ body {
 @media (max-width: 968px) {
     .hero-title {
         font-size: 3.4425rem;
+    }
+    
+    .faqs-grid {
+        grid-template-columns: 1fr;
     }
     
     .about-content,
