@@ -292,10 +292,11 @@ body {
     height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
     overflow: hidden;
     margin-top: 0;
+    padding-left: 60px;
 }
 
 .hero::after {
