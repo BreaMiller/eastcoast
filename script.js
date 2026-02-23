@@ -361,25 +361,6 @@ chatbotInput.addEventListener('keypress', (e) => {
     }
 });
 
-// Navbar hide/reveal on scroll
-const navbar = document.querySelector('.navbar');
-let lastScrollTop = 0;
-
-window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-    
-    if (currentScroll > lastScrollTop && currentScroll > 100) {
-        // Scrolling DOWN - hide navbar
-        navbar.style.transform = 'translateY(-100%)';
-        navbar.style.transition = 'transform 0.3s ease';
-    } else {
-        // Scrolling UP - show navbar
-        navbar.style.transform = 'translateY(0)';
-        navbar.style.transition = 'transform 0.3s ease';
-    }
-    
-    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
-});
 // FAQ Accordion Functionality
 const faqQuestions = document.querySelectorAll('.faq-question');
 
@@ -618,28 +599,6 @@ confirmBookingBtn.addEventListener('click', () => {
     } else {
         alert('Please select a date first.');
     }
-});
-
-// Navbar Hide/Reveal on Scroll with Fade
-const navbar = document.querySelector('.navbar');
-let lastScrollTop = 0;
-let scrollDirection = 'up';
-
-window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-    
-    // Determine scroll direction
-    if (currentScroll > lastScrollTop && currentScroll > 100) {
-        // Scrolling DOWN - hide navbar
-        scrollDirection = 'down';
-        navbar.classList.add('hidden');
-    } else if (currentScroll < lastScrollTop) {
-        // Scrolling UP - show navbar
-        scrollDirection = 'up';
-        navbar.classList.remove('hidden');
-    }
-    
-    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
 });
 
 
