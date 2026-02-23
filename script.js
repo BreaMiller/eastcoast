@@ -391,8 +391,8 @@ class ScrollBlurReveal {
     constructor() {
         this.elements = document.querySelectorAll('.scroll-blur');
         this.minBlur = 0;        // px blur when fully visible
-        this.maxBlur = 12;       // px blur when out of view
-        this.minOpacity = 0.5;   // opacity when out of view
+        this.maxBlur = 6;        // px blur when out of view (reduced from 12)
+        this.minOpacity = 0.7;   // opacity when out of view (increased from 0.5)
         this.maxOpacity = 1.0;   // opacity when fully visible
         this.graceZone = 0.3;    // Extended focus window (30% viewport margin)
         this.init();

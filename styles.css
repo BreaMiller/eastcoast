@@ -451,6 +451,9 @@ body {
 .carousel-container {
     overflow: hidden;
     margin-top: 3rem;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
 }
 
 .carousel {
