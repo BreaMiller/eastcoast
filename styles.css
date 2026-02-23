@@ -449,27 +449,9 @@ body {
 }
 
 .services-grid {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 2.5rem;
-    margin-top: 3rem;
-    width: 100%;
-    grid-auto-flow: row;
+    display: none;
 }
 
-@media (max-width: 968px) {
-    .services-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-    }
-}
-
-@media (max-width: 768px) {
-    .services-grid {
-        grid-template-columns: 1fr !important;
-    }
-}
-
-/* Legacy carousel styles (kept for backwards compatibility) */
 .carousel-container {
     overflow: hidden;
     margin-top: 3rem;

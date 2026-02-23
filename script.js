@@ -519,4 +519,45 @@ confirmBookingBtn.addEventListener('click', () => {
     }
 });
 
+// Expert Storytellers Carousel - Infinite Auto Scroll
+const carousel = document.querySelector('.carousel');
+if (carousel) {
+    const carouselItems = document.querySelectorAll('.carousel-item');
+    const itemCount = carouselItems.length;
+    let scrollPosition = 0;
+    
+    // Clone items for infinite scroll
+    carouselItems.forEach(item => {
+        const clone = item.cloneNode(true);
+        carousel.appendChild(clone);
+    });
+    
+    // Auto-scroll function
+    function autoScroll() {
+        scrollPosition += 1;
+        carousel.scrollLeft = scrollPosition;
+        
+        // Reset to beginning when reaching the end
+        if (scrollPosition >= carousel.scrollWidth - carousel.clientWidth) {
+            scrollPosition = 0;
+            carousel.scrollLeft = 0;
+        }
+        
+        setTimeout(autoScroll, 50); // Adjust speed (lower = faster)
+    }
+    
+    // Start auto-scroll
+    autoScroll();
+    
+    // Optional: Pause on hover
+    carousel.addEventListener('mouseenter', () => {
+        // Scroll pauses automatically when interacting
+        carousel.style.scrollBehavior = 'auto';
+    });
+    
+    carousel.addEventListener('mouseleave', () => {
+        carousel.style.scrollBehavior = 'smooth';
+    });
+}
+
 
