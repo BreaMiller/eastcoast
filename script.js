@@ -393,3 +393,48 @@ const scrollBlurObserver = new IntersectionObserver((entries) => {
 scrollBlurElements.forEach(element => {
     scrollBlurObserver.observe(element);
 });
+
+// Testimonials Carousel Auto-Scroll
+const testimonialsCarousel = document.querySelector('.testimonials-carousel');
+if (testimonialsCarousel) {
+    const testimonialCards = document.querySelectorAll('.testimonial-card');
+    let scrollPosition = 0;
+    let isAutoScrolling = true;
+
+    const autoScroll = () => {
+        if (!isAutoScrolling) return;
+        
+        scrollPosition += 2; // 2px per frame for smooth scrolling
+        testimonialsCarousel.scrollLeft = scrollPosition;
+
+        // Infinite loop - reset to start when reaching the end
+        if (scrollPosition >= testimonialsCarousel.scrollWidth - testimonialsCarousel.clientWidth) {
+            scrollPosition = 0;
+            testimonialsCarousel.scrollLeft = 0;
+        }
+    };
+
+    let animationId = requestAnimationFrame(function scroll() {
+        autoScroll();
+        animationId = requestAnimationFrame(scroll);
+    });
+
+    // Pause on hover
+    testimonialsCarousel.addEventListener('mouseenter', () => {
+        isAutoScrolling = false;
+    });
+
+    testimonialsCarousel.addEventListener('mouseleave', () => {
+        isAutoScrolling = true;
+    });
+
+    // Pause on scroll interaction
+    testimonialsCarousel.addEventListener('scroll', () => {
+        isAutoScrolling = false;
+        clearTimeout(testimonialsCarousel.scrollTimeout);
+        testimonialsCarousel.scrollTimeout = setTimeout(() => {
+            isAutoScrolling = true;
+        }, 3000); // Resume after 3 seconds of no interaction
+    });
+}
+
