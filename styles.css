@@ -416,6 +416,14 @@ body {
     letter-spacing: -0.3px;
 }
 
+.about .section-header h2 {
+    color: #808080;
+}
+
+.gallery .section-header h2 {
+    color: #ffffff;
+}
+
 .section-header p {
     font-size: 1.05rem;
     color: var(--text-light);
