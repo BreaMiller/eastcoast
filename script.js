@@ -372,3 +372,24 @@ faqQuestions.forEach(question => {
         question.setAttribute('aria-expanded', !isActive);
     });
 });
+
+// Scroll Blur Animation with Intersection Observer
+const scrollBlurElements = document.querySelectorAll('.scroll-blur');
+
+const scrollBlurObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            // Element is in view
+            entry.target.classList.add('in-view');
+        } else {
+            // Element is out of view
+            entry.target.classList.remove('in-view');
+        }
+    });
+}, {
+    threshold: 0.1
+});
+
+scrollBlurElements.forEach(element => {
+    scrollBlurObserver.observe(element);
+});

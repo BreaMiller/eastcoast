@@ -86,6 +86,17 @@
     }
 }
 
+/* Scroll Blur Animation */
+.scroll-blur {
+    filter: blur(10px);
+    opacity: 0.6;
+}
+
+.scroll-blur.in-view {
+    filter: blur(0px);
+    opacity: 1;
+}
+
 :root {
     --primary-color: #169e9b;
     --secondary-color: #0f766e;
@@ -109,7 +120,7 @@ body {
     line-height: 1.6;
     color: var(--text-color);
     overflow-x: hidden;
-    padding-top: 126px;
+    padding-top: 112px;
 }
 
 /* Focus Visible for keyboard navigation */
@@ -298,7 +309,7 @@ body {
     z-index: 2;
     max-width: 700px;
     padding: 0 0;
-    padding-left: 40px;
+    padding-left: 0;
 }
 
 .hero-title {
@@ -309,6 +320,7 @@ body {
     line-height: 1.1;
     animation: fadeInUp 0.8s ease;
     letter-spacing: -0.5px;
+    transition: filter 0.6s ease;
 }
 
 .hero-subtitle {
