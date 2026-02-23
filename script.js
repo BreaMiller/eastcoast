@@ -183,15 +183,26 @@ window.addEventListener('load', () => {
 // Infinite Scrolling Carousel Animation
 const carousel = document.querySelector('.carousel');
 if (carousel) {
-    // Clone carousel items for infinite loop
-    const carouselItems = carousel.querySelectorAll('.carousel-item');
-    const itemsArray = Array.from(carouselItems);
+    // Remove any existing duplicates from HTML (class selector to identify originals)
+    const container = carousel.parentElement;
     
-    // Clone items and append them for seamless infinite scroll
-    itemsArray.forEach(item => {
-        const clone = item.cloneNode(true);
-        carousel.appendChild(clone);
-    });
+    // Get original items before any duplicates
+    const allItems = carousel.querySelectorAll('.carousel-item');
+    const originalCount = Math.ceil(allItems.length / 2); // Assuming HTML has 1x originals + duplicates
+    
+    // Create a fresh set for infinite scroll
+    const originalItems = Array.from(allItems).slice(0, originalCount);
+    
+    // Clear carousel and rebuild with proper duplicates
+    carousel.innerHTML = '';
+    
+    // Add items 3x for smooth infinite scroll (previous, current, next)
+    for (let i = 0; i < 3; i++) {
+        originalItems.forEach(item => {
+            const clone = item.cloneNode(true);
+            carousel.appendChild(clone);
+        });
+    }
     
     const updateCarouselBlur = () => {
         const carouselRect = carousel.getBoundingClientRect();
@@ -218,30 +229,32 @@ if (carousel) {
         });
     };
     
-    // Calculate total width of one set of items
-    const getCarouselWidth = () => {
+    // Calculate width of one complete set
+    const getOneSetWidth = () => {
         const itemWidth = carousel.querySelector('.carousel-item').offsetWidth;
         const gap = 40; // 2.5rem = 40px
-        const itemsInSet = 6; // Original number of items before duplicates
-        return (itemWidth + gap) * itemsInSet;
+        return (itemWidth + gap) * originalCount;
     };
     
-    // Auto-scroll animation with seamless loop
+    // Auto-scroll animation with proper infinite scroll
     let isAutoScrolling = true;
     let currentScroll = 0;
-    const carouselWidth = getCarouselWidth();
+    const oneSetWidth = getOneSetWidth();
+    
+    // Start from the middle set
+    carousel.scrollLeft = oneSetWidth;
+    currentScroll = oneSetWidth;
     
     const autoScroll = () => {
         if (isAutoScrolling) {
             currentScroll += 3.5;
             carousel.scrollLeft = currentScroll;
             
-            // Seamless infinite scroll: when reaching cloned items, jump back smoothly
-            const maxScroll = carouselWidth;
-            if (currentScroll >= maxScroll) {
-                // Reset to beginning without animation for seamless loop
-                carousel.scrollLeft = 0;
-                currentScroll = 0;
+            // Seamless infinite scroll: reset to middle when reaching end
+            const totalWidth = oneSetWidth * 3;
+            if (currentScroll >= oneSetWidth * 2) {
+                currentScroll = oneSetWidth;
+                carousel.scrollLeft = currentScroll;
             }
         }
         requestAnimationFrame(autoScroll);
