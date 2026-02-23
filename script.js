@@ -543,7 +543,7 @@ if (carousel) {
             carousel.scrollLeft = 0;
         }
         
-        setTimeout(autoScroll, 50); // Adjust speed (lower = faster)
+        setTimeout(autoScroll, 25); // Adjust speed (lower = faster)
     }
     
     // Start auto-scroll
