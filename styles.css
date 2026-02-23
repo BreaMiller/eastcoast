@@ -1054,11 +1054,17 @@ body {
 }
 
 .footer-bottom {
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding-top: 2rem;
     border-top: 1px solid var(--border-color);
     color: var(--text-light);
     font-size: 0.9rem;
+}
+
+.footer-bottom p {
+    margin: 0;
 }
 
 /* Location Section */
