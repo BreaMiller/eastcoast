@@ -53,6 +53,10 @@
 
 /* Alert Bar */
 .alert-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     background: linear-gradient(135deg, #FF5252 0%, #FF7043 50%, #FFA726 100%);
     color: white;
     padding: 18px 20px;
@@ -62,6 +66,7 @@
     box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
     animation: slideDown 0.5s ease-out;
     border-bottom: 3px solid #ff4500;
+    z-index: 1001;
 }
 
 .alert-bar p {
@@ -105,7 +110,7 @@ body {
     line-height: 1.6;
     color: var(--text-color);
     overflow-x: hidden;
-    padding-top: 56px;
+    padding-top: 126px;
 }
 
 /* Focus Visible for keyboard navigation */
@@ -123,7 +128,7 @@ body {
 /* Navigation */
 .navbar {
     position: fixed;
-    top: 0;
+    top: 56px;
     left: 0;
     right: 0;
     background: #ffffff;
@@ -252,7 +257,7 @@ body {
     justify-content: center;
     background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
     overflow: hidden;
-    margin-top: 70px;
+    margin-top: 0;
 }
 
 .hero::after {
