@@ -115,26 +115,6 @@
     transition: filter 0.3s ease, opacity 0.3s ease;
 }
 
-/* Scroll Reveal Animation - Word by Word */
-.scroll-reveal {
-    margin: 20px 0;
-}
-
-.scroll-reveal-text {
-    font-size: clamp(1.6rem, 4vw, 3rem);
-    line-height: 1.5;
-    font-weight: 600;
-}
-
-.scroll-reveal-word {
-    display: inline-block;
-    margin-right: 0.25em;
-    opacity: 0.1;
-    filter: blur(4px);
-    transform: rotate(3deg);
-    will-change: opacity, filter, transform;
-}
-
 :root {
     --primary-color: #169e9b;
     --secondary-color: #0f766e;

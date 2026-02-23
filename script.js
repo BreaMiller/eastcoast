@@ -642,97 +642,62 @@ window.addEventListener('scroll', () => {
     
     lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
 });
-
-// Scroll Reveal Animation - Word by Word Blur and Opacity Effect
-class ScrollRevealAnimation {
+// Scroll Blur Reveal - All Section Content Blurs Into View
+class ScrollBlurReveal {
     constructor() {
         this.sections = document.querySelectorAll('[class*="scroll-blur"]');
-        this.animatingElements = new Map();
         this.init();
     }
 
     init() {
-        // Process each section's heading
+        // Apply initial blur to all sections
         this.sections.forEach(section => {
-            const heading = section.querySelector('h2');
-            if (heading) {
-                this.processHeading(heading, section);
-            }
+            section.style.filter = 'blur(8px)';
+            section.style.opacity = '0.3';
+            section.style.transition = 'filter 0.6s ease-out, opacity 0.6s ease-out';
         });
 
         // Listen for scroll with passive flag for performance
-        window.addEventListener('scroll', () => this.updateAnimations(), { passive: true });
-        window.addEventListener('resize', () => this.updateAnimations(), { passive: true });
+        window.addEventListener('scroll', () => this.updateBlur(), { passive: true });
+        this.updateBlur(); // Initial call
     }
 
-    processHeading(heading, section) {
-        const originalText = heading.textContent;
-        const words = originalText.split(/(\s+)/);
-        
-        // Create wrapper for structured layout
-        heading.innerHTML = '';
-        const wrapper = document.createElement('p');
-        wrapper.className = 'scroll-reveal-text';
-        heading.appendChild(wrapper);
-        heading.classList.add('scroll-reveal');
-
-        // Create span for each word
-        words.forEach(word => {
-            if (word.trim()) {
-                const span = document.createElement('span');
-                span.className = 'scroll-reveal-word';
-                span.textContent = word;
-                wrapper.appendChild(span);
-                
-                if (!this.animatingElements.has(section)) {
-                    this.animatingElements.set(section, []);
-                }
-                this.animatingElements.get(section).push(span);
-            } else {
-                wrapper.appendChild(document.createTextNode(word));
-            }
-        });
-    }
-
-    updateAnimations() {
-        this.animatingElements.forEach((words, section) => {
+    updateBlur() {
+        this.sections.forEach(section => {
             const rect = section.getBoundingClientRect();
             const viewportHeight = window.innerHeight;
 
-            // Calculate section visibility
+            // Calculate how much of the section is visible
             if (rect.bottom < 0 || rect.top > viewportHeight) {
-                return; // Section not in view
+                // Section completely out of view
+                section.style.filter = 'blur(8px)';
+                section.style.opacity = '0.3';
+                return;
             }
 
-            // Calculate progress: 0 (section at bottom) to 1 (section at top)
-            const progress = Math.max(0, Math.min(1, 
-                (viewportHeight - rect.top) / (viewportHeight + rect.height)
-            ));
+            // Calculate visibility percentage (0 to 1)
+            const visibleTop = Math.max(0, rect.top);
+            const visibleBottom = Math.min(viewportHeight, rect.bottom);
+            const visibleHeight = visibleBottom - visibleTop;
+            const visibility = Math.max(0, Math.min(1, visibleHeight / viewportHeight));
 
-            // Animate each word with stagger effect
-            words.forEach((word, index) => {
-                const staggerDelay = index * 0.05;
-                const wordProgress = Math.max(0, progress - staggerDelay);
-                
-                const opacity = 0.1 + (wordProgress * 0.9); // 0.1 to 1.0
-                const blur = 4 * (1 - wordProgress); // 4px to 0px
-                const rotation = 3 * (1 - wordProgress); // 3deg to 0deg
+            // Map visibility to blur and opacity
+            const blur = 8 * (1 - visibility); // 8px when hidden, 0px when visible
+            const opacity = 0.3 + (visibility * 0.7); // 0.3 when hidden, 1.0 when visible
 
-                word.style.opacity = opacity;
-                word.style.filter = `blur(${blur}px)`;
-                word.style.transform = `rotate(${rotation}deg)`;
-            });
+            section.style.filter = `blur(${blur}px)`;
+            section.style.opacity = opacity;
         });
     }
 }
 
-// Initialize scroll reveal animation
+// Initialize on DOM ready
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
-        new ScrollRevealAnimation();
+        new ScrollBlurReveal();
     });
 } else {
-    new ScrollRevealAnimation();
+    new ScrollBlurReveal();
 }
 
 
