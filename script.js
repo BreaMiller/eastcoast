@@ -373,31 +373,42 @@ faqQuestions.forEach(question => {
     });
 });
 
-// Scroll Blur Animation - Sharp When Section is Centered
+// Smooth Scroll Blur Animation - Animate Sections Into View
 const scrollBlurElements = document.querySelectorAll('.scroll-blur');
 
 function updateScrollBlur() {
     scrollBlurElements.forEach(element => {
         const rect = element.getBoundingClientRect();
-        const elementCenter = rect.top + rect.height / 2;
-        const viewportCenter = window.innerHeight / 2;
+        const viewportHeight = window.innerHeight;
         
-        // Calculate distance from viewport center
-        const distanceFromCenter = Math.abs(elementCenter - viewportCenter);
+        // Calculate how far the section's top is from the top the viewport (0 = top of viewport, viewportHeight = bottom)
+        const elementTopPosition = rect.top;
         
-        // Maximum distance we care about (when section is completely off-screen)
-        const maxDistance = window.innerHeight;
+        // When section enters from bottom (elementTopPosition > viewportHeight) to when it leaves from top (elementTopPosition < 0)
+        // Calculate a 0-1 value where:
+        // 1 = section is entering/leaving (blurry)
+        // 0 = section is in the middle of viewport (sharp)
         
-        // Calculate normalized distance (0 to 1)
-        let normalizedDistance = Math.min(distanceFromCenter / maxDistance, 1);
+        let blurFactor = 1;
         
-        // Calculate blur amount: 10px at max distance, 0px at center
-        const blurAmount = normalizedDistance * 10;
+        if (elementTopPosition < 0) {
+            // Section is scrolling past top - calculate blur based on how far past
+            blurFactor = Math.min(Math.abs(elementTopPosition) / (viewportHeight * 0.5), 1);
+        } else if (elementTopPosition > viewportHeight) {
+            // Section hasn't entered yet - fully blurry
+            blurFactor = 1;
+        } else {
+            // Section is in viewport - calculate how close to center
+            const centerPosition = viewportHeight / 2;
+            const distanceFromCenter = Math.abs(elementTopPosition - centerPosition);
+            const maxDistance = viewportHeight / 2;
+            blurFactor = Math.min(distanceFromCenter / maxDistance, 1);
+        }
         
-        // Calculate opacity: 0.6 when far from center, 1 when centered
-        const opacity = 0.6 + ((1 - normalizedDistance) * 0.4);
+        // Apply smooth blur animation
+        const blurAmount = blurFactor * 10; // 0px (sharp) to 10px (blurry)
+        const opacity = 0.6 + ((1 - blurFactor) * 0.4); // 0.6 (blurry) to 1.0 (sharp)
         
-        // Apply the blur and opacity
         element.style.filter = `blur(${blurAmount}px)`;
         element.style.opacity = opacity;
     });
