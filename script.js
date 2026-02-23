@@ -567,11 +567,11 @@ window.addEventListener('scroll', () => {
     if (currentScroll > lastScrollTop && currentScroll > 100) {
         // Scrolling DOWN - hide navbar
         scrollDirection = 'down';
-        navbar.classList.remove('visible');
+        navbar.classList.add('hidden');
     } else if (currentScroll < lastScrollTop) {
         // Scrolling UP - show navbar
         scrollDirection = 'up';
-        navbar.classList.add('visible');
+        navbar.classList.remove('hidden');
     }
     
     lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;

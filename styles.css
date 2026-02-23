@@ -168,13 +168,13 @@ body {
     z-index: 1000;
     transition: opacity 0.3s ease, visibility 0.3s ease;
     border-bottom: 1px solid var(--border-color);
-    opacity: 0;
-    visibility: hidden;
-}
-
-.navbar.visible {
     opacity: 1;
     visibility: visible;
+}
+
+.navbar.hidden {
+    opacity: 0;
+    visibility: hidden;
 }
 
 .nav-wrapper {
