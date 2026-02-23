@@ -373,6 +373,55 @@ faqQuestions.forEach(question => {
     });
 });
 
+// Smooth Scroll Blur Animation - Sections Blur Into View
+const scrollBlurElements = document.querySelectorAll('.scroll-blur');
+
+function updateScrollBlur() {
+    scrollBlurElements.forEach(element => {
+        const rect = element.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const elementTop = rect.top;
+        const elementBottom = rect.bottom;
+        
+        // Calculate how much of the element is visible
+        let blurFactor = 1; // Start fully blurred
+        
+        if (elementBottom < 0) {
+            // Element is above viewport - fully blurred
+            blurFactor = 1;
+        } else if (elementTop > viewportHeight) {
+            // Element is below viewport - fully blurred
+            blurFactor = 1;
+        } else {
+            // Element is partially or fully in viewport
+            // Calculate what percentage is visible
+            const visibleTop = Math.max(0, elementTop);
+            const visibleBottom = Math.min(viewportHeight, elementBottom);
+            const visibleHeight = visibleBottom - visibleTop;
+            const elementHeight = rect.height;
+            
+            // Normalize visibility (0 to 1, where 1 is fully visible)
+            const visibilityPercent = Math.min(visibleHeight / viewportHeight, 1);
+            
+            // Convert to blur factor: 1 = blurry, 0 = sharp
+            blurFactor = 1 - visibilityPercent;
+        }
+        
+        // Apply blur: 0px when sharp, 12px when blurry
+        const blurAmount = blurFactor * 12;
+        const opacity = 0.7 + ((1 - blurFactor) * 0.3); // 0.7 to 1.0
+        
+        element.style.filter = `blur(${blurAmount}px)`;
+        element.style.opacity = opacity;
+    });
+}
+
+// Update blur on scroll
+window.addEventListener('scroll', updateScrollBlur, { passive: true });
+
+// Initial call to set blur state
+updateScrollBlur();
+
 // Testimonials Carousel Auto-Scroll
 const testimonialsCarousel = document.querySelector('.testimonials-carousel');
 if (testimonialsCarousel) {

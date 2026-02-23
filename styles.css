@@ -111,6 +111,11 @@
     }
 }
 
+/* Smooth Scroll Blur Animation */
+.scroll-blur {
+    transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
 :root {
     --primary-color: #169e9b;
     --secondary-color: #0f766e;
