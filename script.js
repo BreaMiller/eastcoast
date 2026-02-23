@@ -88,8 +88,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Navbar Hide/Show on Scroll Down/Up (sticky menu)
+// Navbar and Alert Bar Hide on Scroll Down, Show on Scroll Up
 const navbar = document.querySelector('.navbar');
+const alertBar = document.querySelector('.alert-bar');
 let lastScroll = 0;
 
 window.addEventListener('scroll', () => {
@@ -104,13 +105,15 @@ window.addEventListener('scroll', () => {
         navbar.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
     }
     
-    // Hide navbar when scrolling down, show when scrolling up
+    // Hide navbar and alert bar when scrolling down, show when scrolling up
     if (currentScroll > lastScroll && currentScroll > 100) {
-        // Scrolling down - hide navbar
+        // Scrolling down
         navbar.classList.add('hidden');
+        if (alertBar) alertBar.classList.add('hidden');
     } else if (currentScroll < lastScroll) {
-        // Scrolling up - show navbar
+        // Scrolling up
         navbar.classList.remove('hidden');
+        if (alertBar) alertBar.classList.remove('hidden');
     }
     
     lastScroll = currentScroll;
