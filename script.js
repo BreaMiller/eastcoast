@@ -329,3 +329,22 @@ chatbotInput.addEventListener('keypress', (e) => {
     }
 });
 
+// Navbar hide/reveal on scroll
+const navbar = document.querySelector('.navbar');
+let lastScrollTop = 0;
+
+window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+    
+    if (currentScroll > lastScrollTop && currentScroll > 100) {
+        // Scrolling DOWN - hide navbar
+        navbar.style.transform = 'translateY(-100%)';
+        navbar.style.transition = 'transform 0.3s ease';
+    } else {
+        // Scrolling UP - show navbar
+        navbar.style.transform = 'translateY(0)';
+        navbar.style.transition = 'transform 0.3s ease';
+    }
+    
+    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+});
