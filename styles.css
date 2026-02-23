@@ -1097,7 +1097,7 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
-    align-items: flex-start;
+    align-items: stretch;
 }
 
 .location-info {
@@ -1106,6 +1106,10 @@ body {
     border-radius: 12px;
     border: 1px solid var(--border-color);
     box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 450px;
 }
 
 .location-info h3 {
@@ -1120,6 +1124,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    flex-grow: 1;
 }
 
 .location-item h4 {
@@ -1156,6 +1161,12 @@ body {
     overflow: hidden;
     box-shadow: var(--shadow-lg);
     height: 450px;
+}
+
+.location-button-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
 }
 
 .location-map iframe {
