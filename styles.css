@@ -53,19 +53,22 @@
 
 /* Alert Bar */
 .alert-bar {
-    background: linear-gradient(135deg, #FF6B6B 0%, #FF8E72 50%, #FFB347 100%);
+    background: linear-gradient(135deg, #FF5252 0%, #FF7043 50%, #FFA726 100%);
     color: white;
-    padding: 12px 20px;
+    padding: 18px 20px;
     text-align: center;
-    font-weight: 600;
-    font-size: 0.95rem;
-    box-shadow: var(--shadow-lg);
+    font-weight: 700;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
     animation: slideDown 0.5s ease-out;
+    border-bottom: 3px solid #ff4500;
 }
 
 .alert-bar p {
     margin: 0;
-    letter-spacing: 0.3px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-size: 1rem;
 }
 
 @keyframes slideDown {
