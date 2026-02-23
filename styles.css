@@ -64,7 +64,6 @@
     font-weight: 400;
     font-size: 0.95rem;
     box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
-    animation: slideDown 0.5s ease-out;
     border-bottom: 3px solid #ff4500;
     z-index: 1001;
     height: 45px;
