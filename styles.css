@@ -649,9 +649,11 @@ body {
 
 .partnership-content {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: center;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    align-items: flex-start;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 .partnership-image {
@@ -661,6 +663,11 @@ body {
 .partnership-image img {
     display: block;
     width: 100%;
+    height: auto;
+}
+
+.partnership-text {
+    text-align: center;
 }
 
 .partnership-text h3 {
@@ -1616,11 +1623,6 @@ body {
     .contact-content {
         grid-template-columns: 1fr;
         gap: 3rem;
-    }
-    
-    .partnership-content {
-        grid-template-columns: 1fr;
-        gap: 2rem;
     }
     
     .about-text {
