@@ -392,54 +392,87 @@ faqQuestions.forEach(question => {
     });
 });
 
-// Smooth Scroll Blur Animation - Sections Blur Into View
-const scrollBlurElements = document.querySelectorAll('.scroll-blur');
+// Scroll Blur Reveal Animation - Sections fade in from blur as they enter viewport
+class ScrollBlurReveal {
+    constructor() {
+        this.elements = document.querySelectorAll('.scroll-blur');
+        this.minBlur = 0;      // px blur when fully visible
+        this.maxBlur = 12;     // px blur when out of view
+        this.minOpacity = 0.6; // opacity when out of view
+        this.maxOpacity = 1.0; // opacity when fully visible
+        this.init();
+    }
 
-function updateScrollBlur() {
-    scrollBlurElements.forEach(element => {
+    init() {
+        // Use IntersectionObserver for better performance
+        this.observeElements();
+        // Also listen to scroll events for real-time updates
+        window.addEventListener('scroll', () => this.updateAll(), { passive: true });
+        this.updateAll();
+    }
+
+    observeElements() {
+        // Create intersection observer to detect when elements enter viewport
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Element is in viewport
+                    this.update(entry.target);
+                }
+            });
+        }, {
+            threshold: 0,
+            rootMargin: '50px'
+        });
+
+        this.elements.forEach(el => observer.observe(el));
+    }
+
+    calculateVisibility(element) {
         const rect = element.getBoundingClientRect();
         const viewportHeight = window.innerHeight;
-        const elementTop = rect.top;
-        const elementBottom = rect.bottom;
-        
-        // Calculate how much of the element is visible
-        let blurFactor = 1; // Start fully blurred
-        
-        if (elementBottom < 0) {
-            // Element is above viewport - fully blurred
-            blurFactor = 1;
-        } else if (elementTop > viewportHeight) {
-            // Element is below viewport - fully blurred
-            blurFactor = 1;
-        } else {
-            // Element is partially or fully in viewport
-            // Calculate what percentage is visible
-            const visibleTop = Math.max(0, elementTop);
-            const visibleBottom = Math.min(viewportHeight, elementBottom);
-            const visibleHeight = visibleBottom - visibleTop;
-            const elementHeight = rect.height;
-            
-            // Normalize visibility (0 to 1, where 1 is fully visible)
-            const visibilityPercent = Math.min(visibleHeight / viewportHeight, 1);
-            
-            // Convert to blur factor: 1 = blurry, 0 = sharp
-            blurFactor = 1 - visibilityPercent;
+
+        // Check if completely out of view
+        if (rect.bottom < 0 || rect.top > viewportHeight) {
+            return 0; // Not visible at all
         }
+
+        // Calculate how much of element is in viewport
+        const visibleTop = Math.max(0, rect.top);
+        const visibleBottom = Math.min(viewportHeight, rect.bottom);
+        const visibleHeight = visibleBottom - visibleTop;
         
-        // Apply blur: 0px when sharp, 12px when blurry
-        const blurAmount = blurFactor * 12;
-        const opacity = 0.7 + ((1 - blurFactor) * 0.3); // 0.7 to 1.0
+        // Return visibility as 0-1 (0 = not visible, 1 = fully visible in viewport)
+        return Math.min(1, visibleHeight / viewportHeight);
+    }
+
+    update(element) {
+        const visibility = this.calculateVisibility(element);
         
-        element.style.filter = `blur(${blurAmount}px)`;
+        // Linear interpolation for blur
+        const blur = this.maxBlur - (visibility * (this.maxBlur - this.minBlur));
+        
+        // Linear interpolation for opacity
+        const opacity = this.minOpacity + (visibility * (this.maxOpacity - this.minOpacity));
+        
+        // Apply effects
+        element.style.filter = `blur(${blur}px)`;
         element.style.opacity = opacity;
-    });
+    }
+
+    updateAll() {
+        this.elements.forEach(element => this.update(element));
+    }
 }
 
-// Update blur on scroll
-window.addEventListener('scroll', updateScrollBlur, { passive: true });
-
-// Initial call to set blur state
-updateScrollBlur();
+// Initialize on DOM ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        new ScrollBlurReveal();
+    });
+} else {
+    new ScrollBlurReveal();
+}
 
 // Testimonials Carousel Auto-Scroll
 const testimonialsCarousel = document.querySelector('.testimonials-carousel');
