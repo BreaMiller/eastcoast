@@ -525,6 +525,9 @@ if (carousel) {
     const carouselItems = document.querySelectorAll('.carousel-item');
     const itemCount = carouselItems.length;
     let scrollPosition = 0;
+    let isAutoScrolling = true;
+    let autoScrollTimeout = null;
+    let userInteractionTimeout = null;
     
     // Clone items for infinite scroll
     carouselItems.forEach(item => {
@@ -534,6 +537,8 @@ if (carousel) {
     
     // Auto-scroll function
     function autoScroll() {
+        if (!isAutoScrolling) return;
+        
         scrollPosition += 1;
         carousel.scrollLeft = scrollPosition;
         
@@ -543,21 +548,50 @@ if (carousel) {
             carousel.scrollLeft = 0;
         }
         
-        setTimeout(autoScroll, 25); // Adjust speed (lower = faster)
+        autoScrollTimeout = setTimeout(autoScroll, 25);
     }
+    
+    // Pause auto-scroll on user interaction
+    carousel.addEventListener('mousedown', () => {
+        isAutoScrolling = false;
+        if (autoScrollTimeout) clearTimeout(autoScrollTimeout);
+    });
+    
+    carousel.addEventListener('touchstart', () => {
+        isAutoScrolling = false;
+        if (autoScrollTimeout) clearTimeout(autoScrollTimeout);
+    });
+    
+    // Resume auto-scroll after user stops interacting
+    carousel.addEventListener('mouseup', () => {
+        clearTimeout(userInteractionTimeout);
+        userInteractionTimeout = setTimeout(() => {
+            isAutoScrolling = true;
+            autoScroll();
+        }, 1000);
+    });
+    
+    carousel.addEventListener('touchend', () => {
+        clearTimeout(userInteractionTimeout);
+        userInteractionTimeout = setTimeout(() => {
+            isAutoScrolling = true;
+            autoScroll();
+        }, 1000);
+    });
+    
+    // Also listen for manual scroll events
+    carousel.addEventListener('scroll', () => {
+        isAutoScrolling = false;
+        if (autoScrollTimeout) clearTimeout(autoScrollTimeout);
+        clearTimeout(userInteractionTimeout);
+        userInteractionTimeout = setTimeout(() => {
+            isAutoScrolling = true;
+            autoScroll();
+        }, 1000);
+    });
     
     // Start auto-scroll
     autoScroll();
-    
-    // Optional: Pause on hover
-    carousel.addEventListener('mouseenter', () => {
-        // Scroll pauses automatically when interacting
-        carousel.style.scrollBehavior = 'auto';
-    });
-    
-    carousel.addEventListener('mouseleave', () => {
-        carousel.style.scrollBehavior = 'smooth';
-    });
 }
 
 
